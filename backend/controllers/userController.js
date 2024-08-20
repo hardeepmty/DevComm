@@ -22,13 +22,22 @@ const register = async (req, res) => {
     }
 
     let profilePicture = '';
+    let repositories = [];
 
     if (github) {
       try {
         const githubResponse = await axios.get(`https://api.github.com/users/${github}`);
         profilePicture = githubResponse.data.avatar_url;
+
+        const reposResponse = await axios.get(`https://api.github.com/users/${github}/repos`);
+        repositories = reposResponse.data.map(repo => ({
+          name: repo.name,
+          url: repo.html_url,
+          description: repo.description,
+        }));
       } catch (error) {
-        console.error("Failed to fetch GitHub profile picture:", error.message);
+        console.error("Failed to fetch GitHub data:", error.message);
+        profilePicture = ''; // Fallback to empty string
       }
     }
 
@@ -101,6 +110,7 @@ const login = async (req, res) => {
       followers: user.followers,
       following: user.following,
       posts: populatedPosts,
+      repositories: user.repositories,
     };
 
     return res.cookie('token', token, { httpOnly: true, sameSite: 'strict', maxAge: 1 * 24 * 60 * 60 * 1000 }).json({
