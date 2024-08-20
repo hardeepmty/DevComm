@@ -33,4 +33,5 @@ const register = async(req,res) =>{
   }
 }
 
+const login = 
 module.exports = {register};

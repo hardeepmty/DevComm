@@ -1,10 +1,10 @@
 import './App.css'
+import Register from './pages/Register.jsx'
 
 function App() {
-
   return (
     <div>
-     devComm
+     <Register/>
     </div>
   )
 }
