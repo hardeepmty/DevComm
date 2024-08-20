@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Register = () => {
+function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
       const response = await axios.post('http://localhost:5000/api/user/register', {
         username,
@@ -18,18 +19,20 @@ const Register = () => {
       });
 
       if (response.data.success) {
-        setMessage('User registered successfully!');
+        alert('Registration successful! You can now log in.');
+        navigate('/login');
       } else {
-        setMessage(response.data.message || 'Registration failed');
+        setError(response.data.message);
       }
-    } catch (error) {
-      setMessage('An error occurred during registration');
+    } catch (err) {
+      setError('Failed to register.');
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Register</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
@@ -60,9 +63,11 @@ const Register = () => {
         </div>
         <button type="submit">Register</button>
       </form>
-      {message && <p>{message}</p>}
+      <p>
+        Already a user? <button onClick={() => navigate('/login')}>Login</button>
+      </p>
     </div>
   );
-};
+}
 
 export default Register;
