@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import UserProfile from './pages/UserProfile';
+import TrendingRepositories from './pages/TrendingRepositories';
+import PopularArticles from './pages/PopularArticles';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/profile/:userId' element={<UserProfile/>}/>
+          <Route path='/repos' element={<TrendingRepositories/>}/>
+          <Route path='/dev' element={<PopularArticles/>}/>
         </Routes>
       </div>
     </Router>

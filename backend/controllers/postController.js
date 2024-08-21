@@ -1,25 +1,22 @@
 const Post = require('../models/posts');
-const User = require('../models/user'); // Import the User model
+const User = require('../models/user'); 
 
-// Create a New Post
 const newPost = async (req, res) => {
   try {
     const { caption } = req.body;
-    const author = req.user_; // Get the logged-in user's ID from the request object
+    const author = req.user_; 
 
     if (!caption) {
       return res.status(400).json({ message: 'Caption is required' });
     }
 
-    // Create and save the new post
     const post = new Post({ caption, author });
     await post.save();
 
-    // Update the user's profile with the new post
     await User.findByIdAndUpdate(
       author,
-      { $push: { posts: post._id } }, // Add the post ID to the user's posts array
-      { new: true } // Return the updated user
+      { $push: { posts: post._id } }, 
+      { new: true } 
     );
 
     res.status(201).json({ success: true, post });
@@ -29,12 +26,10 @@ const newPost = async (req, res) => {
   }
 };
 
-// Get All Posts by the Logged-In User
 const getUserPosts = async (req, res) => {
   try {
-    const userId = req.user_; // Get the logged-in user's ID from the request object
+    const userId = req.user_; 
 
-    // Find the user and populate posts
     const user = await User.findById(userId).populate('posts').exec();
 
     if (!user) {
@@ -48,12 +43,10 @@ const getUserPosts = async (req, res) => {
   }
 };
 
-// Get Post by ID
 const getPostById = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    // Find the post by ID
     const post = await Post.findById(postId);
 
     if (!post) {
@@ -67,10 +60,8 @@ const getPostById = async (req, res) => {
   }
 };
 
-// Get All Posts
 const getAllPosts = async (req, res) => {
   try {
-    // Retrieve all posts from the database
     const posts = await Post.find().populate('author', 'username').exec();
 
     if (!posts.length) {
