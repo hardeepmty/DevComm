@@ -262,8 +262,43 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUserProfile = async (req, res) => {
+  const { id } = req.params; 
+
+  try {
+    const user = await User.findById(id)
+      .populate('followers', 'username') 
+      .populate('following', 'username') 
+      .select('-password'); 
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "User profile retrieved successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
+};
 
 
+
+
+
+
+
+//Implementing follow and unfollow
 
 const followUser = async (req, res) => {
   try {
@@ -320,7 +355,6 @@ const unfollowUser = async (req, res) => {
     const currentUserId = req.user_;
     const { userIdToUnfollow } = req.body;
 
-    // Check if userIdToUnfollow is provided
     if (!userIdToUnfollow) {
       return res.status(400).json({
         message: "No user ID provided",
@@ -328,7 +362,6 @@ const unfollowUser = async (req, res) => {
       });
     }
 
-    // Ensure the user to unfollow exists
     const userToUnfollow = await User.findById(userIdToUnfollow);
     if (!userToUnfollow) {
       return res.status(404).json({
@@ -337,7 +370,6 @@ const unfollowUser = async (req, res) => {
       });
     }
 
-    // Ensure the current user is following the user to unfollow
     const currentUser = await User.findById(currentUserId);
     if (!currentUser.following.includes(userIdToUnfollow)) {
       return res.status(400).json({
@@ -346,17 +378,14 @@ const unfollowUser = async (req, res) => {
       });
     }
 
-    // Remove user from current user's following list
     await User.findByIdAndUpdate(currentUserId, {
       $pull: { following: userIdToUnfollow },
     });
 
-    // Remove current user from the unfollowed user's followers list
     await User.findByIdAndUpdate(userIdToUnfollow, {
       $pull: { followers: currentUserId },
     });
 
-    // Fetch and return updated following list for current user
     const updatedUser = await User.findById(currentUserId).select('following');
     return res.status(200).json({
       message: "User unfollowed successfully",
@@ -375,4 +404,4 @@ const unfollowUser = async (req, res) => {
 
 
 
-module.exports = { register, login, logout, getMyself, editProfile, getUsers, followUser, unfollowUser };
+module.exports = { register, login, logout, getMyself, editProfile, getUsers, followUser, unfollowUser, getUserProfile };
