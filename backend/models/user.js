@@ -20,6 +20,8 @@ const userSchema = new mongoose.Schema({
           description: { type: String }
       }
   ], 
+      openToWork: { type: Boolean, default: false }, // New field for open to work status
+
 },
 { timestamps: true });
 

@@ -17,7 +17,7 @@ function Register() {
         username,
         email,
         password,
-        github, // Include GitHub in the request
+        github, 
       });
 
       if (response.data.success) {

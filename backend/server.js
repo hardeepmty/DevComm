@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes')
+const postRoutes = require('./routes/postRoutes')
 const cookieParser = require('cookie-parser'); 
 
 const cors = require('cors') ;
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes) ;
 
 
 app.listen(PORT, () => {

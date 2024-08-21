@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [users, setUsers] = useState([]); // State to store users
+  const [posts, setPosts] = useState([]); // State to store posts
   const [loading, setLoading] = useState(true); // State to handle loading
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsersAndPosts = async () => {
       const token = localStorage.getItem('token');
 
       if (!token) {
@@ -16,13 +17,14 @@ const Home = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/user/getUsers', {
+        // Fetch users
+        const usersResponse = await axios.get('http://localhost:5000/api/user/getUsers', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
 
-        if (response.data.success) {
-          const usersWithFollowStatus = response.data.users.map(user => ({
+        if (usersResponse.data.success) {
+          const usersWithFollowStatus = usersResponse.data.users.map(user => ({
             ...user,
             isFollowing: user.isFollowing !== undefined ? user.isFollowing : false,
           }));
@@ -31,15 +33,27 @@ const Home = () => {
         } else {
           alert('Failed to fetch users');
         }
+
+        // Fetch posts
+        const postsResponse = await axios.get('http://localhost:5000/api/post/allPosts', {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
+
+        if (postsResponse.data.success) {
+          setPosts(postsResponse.data.posts);
+        } else {
+          alert('Failed to fetch posts');
+        }
       } catch (error) {
-        console.error('Error fetching users:', error);
-        alert('Failed to fetch users');
+        console.error('Error fetching data:', error);
+        alert('Failed to fetch data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchUsersAndPosts();
   }, []);
 
   const handleFollowUnfollow = async (userId, isFollowing) => {
@@ -87,8 +101,8 @@ const Home = () => {
     return <div>Loading...</div>;
   }
 
-  if (users.length === 0) {
-    return <div>No users found</div>;
+  if (users.length === 0 && posts.length === 0) {
+    return <div>No users or posts found</div>;
   }
 
   return (
@@ -96,7 +110,7 @@ const Home = () => {
       <h1>All Users</h1>
       <ul>
         {users.map(user => (
-          <li key={user._id}>
+          <li key={user._id} style={{ marginBottom: '20px' }}>
             <Link to={`/profile/${user._id}`}>
               {user.profilePicture && (
                 <img
@@ -104,9 +118,25 @@ const Home = () => {
                   alt={`${user.username}'s profile`}
                   width="50"
                   height="50"
+                  style={{ borderRadius: '50%', marginRight: '10px' }}
                 />
               )}
-              <p>Username: {user.username}</p>
+              <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                {user.username}
+                {user.openToWork && (
+                  <span
+                    style={{
+                      width: '10px',
+                      height: '10px',
+                      borderRadius: '50%',
+                      backgroundColor: 'green',
+                      display: 'inline-block',
+                      marginLeft: '5px',
+                    }}
+                    title="Open to Work"
+                  />
+                )}
+              </span>
             </Link>
             <p>Email: {user.email}</p>
             <p>Bio: {user.bio}</p>
@@ -116,6 +146,17 @@ const Home = () => {
             >
               {user.isFollowing ? 'Unfollow' : 'Follow'}
             </button>
+          </li>
+        ))}
+      </ul>
+
+      <h1>All Posts</h1>
+      <ul>
+        {posts.map(post => (
+          <li key={post._id}>
+            <p>Author: {post.author.username}</p>
+            <p>{post.caption}</p>
+            <p>Likes: {post.likes.length}</p>
           </li>
         ))}
       </ul>

@@ -6,6 +6,9 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [editingField, setEditingField] = useState(null);
   const [fieldValue, setFieldValue] = useState('');
+  const [newPostCaption, setNewPostCaption] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [openToWork, setOpenToWork] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -24,6 +27,8 @@ const Profile = () => {
 
         if (response.data.success) {
           setUser(response.data.user);
+          setOpenToWork(response.data.user.openToWork || false);
+          fetchUserPosts(response.data.user._id);
         } else {
           alert('Failed to fetch user profile');
         }
@@ -32,6 +37,25 @@ const Profile = () => {
         alert('Failed to fetch user profile');
       } finally {
         setLoading(false);
+      }
+    };
+
+    const fetchUserPosts = async (userId) => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get(`http://localhost:5000/api/post/userPosts`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
+
+        if (response.data.success) {
+          setPosts(response.data.posts);
+        } else {
+          alert('Failed to fetch user posts');
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        alert('Failed to fetch user posts');
       }
     };
 
@@ -80,6 +104,53 @@ const Profile = () => {
     }
   };
 
+  const handleNewPostChange = (e) => {
+    setNewPostCaption(e.target.value);
+  };
+
+  const createNewPost = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/post/newPost',
+        { caption: newPostCaption },
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
+      );
+
+      if (response.data.success) {
+        setPosts((prevPosts) => [response.data.post, ...prevPosts]);
+        setNewPostCaption('');
+        alert('Post created successfully');
+      } else {
+        alert('Failed to create post');
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+      alert('Failed to create post');
+    }
+  };
+
+  const toggleOpenToWork = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.patch(
+        'http://localhost:5000/api/user/edit',
+        { openToWork: !openToWork },
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
+      );
+
+      if (response.data.success) {
+        setIsOpenToWork(!isOpenToWork);
+        alert('Open to Work status updated successfully');
+      } else {
+        alert('Failed to update Open to Work status');
+      }
+    } catch (error) {
+      console.error('Error updating Open to Work status:', error);
+      alert('Failed to update Open to Work status');
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -91,18 +162,54 @@ const Profile = () => {
   return (
     <div>
       <h1>{user.username}'s Profile</h1>
+      {/* Open to Work Toggle */}
+      <div>
+        <label>Open to Work: </label>
+        <input
+          type="checkbox"
+          checked={openToWork}
+          onChange={toggleOpenToWork}
+        />
+      </div>
       <p>Followers: {user.followers.length}</p>
       <ul>
         {user.followers.map((follower) => (
-          <li key={follower._id}>{follower.username}</li>
+          <li key={follower._id}>
+            {follower.username}
+            {follower.isOnline && (
+              <span style={{
+                display: 'inline-block',
+                width: '10px',
+                height: '10px',
+                backgroundColor: 'green',
+                borderRadius: '50%',
+                marginLeft: '8px',
+                verticalAlign: 'middle',
+              }}></span>
+            )}
+          </li>
         ))}
       </ul>
       <p>Following: {user.following.length}</p>
       <ul>
         {user.following.map((following) => (
-          <li key={following._id}>{following.username}</li>
+          <li key={following._id}>
+            {following.username}
+            {following.isOnline && (
+              <span style={{
+                display: 'inline-block',
+                width: '10px',
+                height: '10px',
+                backgroundColor: 'green',
+                borderRadius: '50%',
+                marginLeft: '8px',
+                verticalAlign: 'middle',
+              }}></span>
+            )}
+          </li>
         ))}
       </ul>
+
       {/* Profile Picture */}
       {user.profilePicture && (
         <div style={{ marginBottom: '20px' }}>
@@ -189,9 +296,32 @@ const Profile = () => {
           </>
         ) : (
           <>
-            <span>{user.github}</span>
-            <button onClick={() => handleFieldEdit('github', user.github)}>Edit</button>
+            <span>{user.githubUsername}</span>
+            <button onClick={() => handleFieldEdit('github', user.githubUsername)}>Edit</button>
           </>
+        )}
+      </div>
+
+      {/* New Post Creation */}
+      <div>
+        <textarea
+          placeholder="Write a new post..."
+          value={newPostCaption}
+          onChange={handleNewPostChange}
+        />
+        <button onClick={createNewPost}>Post</button>
+      </div>
+
+      {/* Display User's Posts */}
+      <div>
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <div key={post._id}>
+              <p>{post.caption}</p>
+            </div>
+          ))
+        ) : (
+          <p>No posts yet.</p>
         )}
       </div>
 

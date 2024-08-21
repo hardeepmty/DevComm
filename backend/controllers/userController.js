@@ -171,9 +171,8 @@ const getMyself = async (req, res) => {
   }
 };
 
-
 const editProfile = async (req, res) => {
-  const userId = req.user_; // Assuming `req.user_` contains the authenticated user
+  const userId = req.user_;
 
   try {
     const user = await User.findById(userId);
@@ -184,11 +183,12 @@ const editProfile = async (req, res) => {
       });
     }
 
-    const { username, email, bio, github } = req.body;
+    const { username, email, bio, github, openToWork } = req.body;
 
     if (username) user.username = username;
     if (email) user.email = email;
     if (bio) user.bio = bio;
+    if (typeof openToWork === 'boolean') user.openToWork = openToWork;
 
     if (github && github !== user.github) {
       try {
@@ -220,6 +220,7 @@ const editProfile = async (req, res) => {
         bio: user.bio,
         github: user.github,
         repositories: user.repositories,
+        openToWork: user.openToWork, // Include openToWork in the response
       },
     });
   } catch (error) {
@@ -230,6 +231,7 @@ const editProfile = async (req, res) => {
     });
   }
 };
+
 
 const getUsers = async (req, res) => {
   try {
