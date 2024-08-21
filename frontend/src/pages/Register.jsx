@@ -6,6 +6,7 @@ function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [github, setGithub] = useState(''); // Added state for GitHub
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ function Register() {
         username,
         email,
         password,
+        github, // Include GitHub in the request
       });
 
       if (response.data.success) {
@@ -59,6 +61,14 @@ function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <label>GitHub Username:</label>
+          <input
+            type="text"
+            value={github}
+            onChange={(e) => setGithub(e.target.value)}
           />
         </div>
         <button type="submit">Register</button>

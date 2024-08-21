@@ -91,7 +91,18 @@ const Profile = () => {
   return (
     <div>
       <h1>{user.username}'s Profile</h1>
-      
+      <p>Followers: {user.followers.length}</p>
+      <ul>
+        {user.followers.map((follower) => (
+          <li key={follower._id}>{follower.username}</li>
+        ))}
+      </ul>
+      <p>Following: {user.following.length}</p>
+      <ul>
+        {user.following.map((following) => (
+          <li key={following._id}>{following.username}</li>
+        ))}
+      </ul>
       {/* Profile Picture */}
       {user.profilePicture && (
         <div style={{ marginBottom: '20px' }}>
