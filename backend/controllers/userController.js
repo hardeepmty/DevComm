@@ -37,7 +37,7 @@ const register = async (req, res) => {
         }));
       } catch (error) {
         console.error("Failed to fetch GitHub data:", error.message);
-        profilePicture = ''; // Fallback to empty string
+        profilePicture = ''; 
       }
     }
 
@@ -48,6 +48,7 @@ const register = async (req, res) => {
       password: hashedPassword,
       github,
       profilePicture,
+      repositories, 
     });
 
     return res.status(201).json({
@@ -165,5 +166,85 @@ const getMyself = async (req, res) => {
   }
 };
 
+const editProfile = async (req, res) => {
+  const userId = req.user_; // Assuming `req.user_` contains the authenticated user
 
-module.exports = { register, login, logout, getMyself };
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    const { username, email, bio, github } = req.body;
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (bio) user.bio = bio;
+
+    if (github && github !== user.github) {
+      try {
+        const githubResponse = await axios.get(`https://api.github.com/users/${github}`);
+        user.profilePicture = githubResponse.data.avatar_url;
+
+        const reposResponse = await axios.get(`https://api.github.com/users/${github}/repos`);
+        user.repositories = reposResponse.data.map(repo => ({
+          name: repo.name,
+          url: repo.html_url,
+          description: repo.description,
+        }));
+        user.github = github;
+      } catch (error) {
+        console.error("Failed to fetch GitHub data:", error.message);
+      }
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      success: true,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePicture: user.profilePicture,
+        bio: user.bio,
+        github: user.github,
+        repositories: user.repositories,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
+};
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({}); 
+    if (users.length === 0) {
+      return res.status(404).json({
+        message: "No users found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      message: "All user profiles retrieved successfully",
+      success: true,
+      users, 
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
+};
+
+module.exports = { register, login, logout, getMyself, editProfile, getUsers };

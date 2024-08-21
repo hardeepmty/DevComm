@@ -3,22 +3,25 @@ import axios from 'axios';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [editingField, setEditingField] = useState(null);
+  const [fieldValue, setFieldValue] = useState('');
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        window.location.href = '/login'; 
+        window.location.href = '/login';
         return;
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/user/getMyself', { 
+        const response = await axios.get('http://localhost:5000/api/user/getMyself', {
           headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true 
+          withCredentials: true,
         });
-        
+
         if (response.data.success) {
           setUser(response.data.user);
         } else {
@@ -27,6 +30,8 @@ const Profile = () => {
       } catch (error) {
         console.error('Error fetching profile:', error);
         alert('Failed to fetch user profile');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -44,33 +49,140 @@ const Profile = () => {
     }
   };
 
-  if (!user) {
+  const handleFieldEdit = (fieldName, value) => {
+    setEditingField(fieldName);
+    setFieldValue(value);
+  };
+
+  const handleFieldChange = (e) => {
+    setFieldValue(e.target.value);
+  };
+
+  const saveFieldChange = async (fieldName) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.patch(
+        'http://localhost:5000/api/user/edit',
+        { [fieldName]: fieldValue },
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
+      );
+
+      if (response.data.success) {
+        setUser((prevUser) => ({ ...prevUser, [fieldName]: fieldValue }));
+        setEditingField(null);
+        alert('Profile updated successfully');
+      } else {
+        alert('Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile');
+    }
+  };
+
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <div>Profile not found</div>;
   }
 
   return (
     <div>
       <h1>{user.username}'s Profile</h1>
-      <img src={user.profilePicture} alt={`${user.username}'s avatar`} />
-      <p>Email: {user.email}</p>
-      <p>Bio: {user.bio}</p>
-      <p>Followers: {user.followers.length}</p>
-      <p>Following: {user.following.length}</p>
-      <p>Posts: {user.posts.length}</p>
       
-      <h2>Public Repositories</h2>
-      {user.repositories.length > 0 ? (
-        <ul>
-          {user.repositories.map((repo, index) => (
-            <li key={index}>
-              <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
-              {repo.description && <p>{repo.description}</p>}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No public repositories found.</p>
+      {/* Profile Picture */}
+      {user.profilePicture && (
+        <div style={{ marginBottom: '20px' }}>
+          <img
+            src={user.profilePicture}
+            alt={`${user.username}'s profile`}
+            style={{ width: '150px', borderRadius: '50%' }}
+          />
+        </div>
       )}
+
+      <div>
+        <label>Username: </label>
+        {editingField === 'username' ? (
+          <>
+            <input
+              type="text"
+              value={fieldValue}
+              onChange={handleFieldChange}
+              required
+            />
+            <button onClick={() => saveFieldChange('username')}>Save</button>
+            <button onClick={() => setEditingField(null)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <span>{user.username}</span>
+            <button onClick={() => handleFieldEdit('username', user.username)}>Edit</button>
+          </>
+        )}
+      </div>
+
+      <div>
+        <label>Email: </label>
+        {editingField === 'email' ? (
+          <>
+            <input
+              type="email"
+              value={fieldValue}
+              onChange={handleFieldChange}
+              required
+            />
+            <button onClick={() => saveFieldChange('email')}>Save</button>
+            <button onClick={() => setEditingField(null)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <span>{user.email}</span>
+            <button onClick={() => handleFieldEdit('email', user.email)}>Edit</button>
+          </>
+        )}
+      </div>
+
+      <div>
+        <label>Bio: </label>
+        {editingField === 'bio' ? (
+          <>
+            <textarea
+              value={fieldValue}
+              onChange={handleFieldChange}
+            />
+            <button onClick={() => saveFieldChange('bio')}>Save</button>
+            <button onClick={() => setEditingField(null)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <span>{user.bio}</span>
+            <button onClick={() => handleFieldEdit('bio', user.bio)}>Edit</button>
+          </>
+        )}
+      </div>
+
+      <div>
+        <label>GitHub Username: </label>
+        {editingField === 'github' ? (
+          <>
+            <input
+              type="text"
+              value={fieldValue}
+              onChange={handleFieldChange}
+            />
+            <button onClick={() => saveFieldChange('github')}>Save</button>
+            <button onClick={() => setEditingField(null)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <span>{user.github}</span>
+            <button onClick={() => handleFieldEdit('github', user.github)}>Edit</button>
+          </>
+        )}
+      </div>
 
       <button onClick={handleLogout}>Logout</button>
     </div>
