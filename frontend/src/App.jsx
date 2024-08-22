@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import UserProfile from './pages/UserProfile';
 import TrendingRepositories from './pages/TrendingRepositories';
 import PopularArticles from './pages/PopularArticles';
+import Try from './pages/Try';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path='/profile/:userId' element={<UserProfile/>}/>
           <Route path='/repos' element={<TrendingRepositories/>}/>
           <Route path='/dev' element={<PopularArticles/>}/>
+          <Route path='/try' element={<Try/>}/>
+          <Route path="/chat/:userId" element={<Chat/>} />
         </Routes>
       </div>
     </Router>

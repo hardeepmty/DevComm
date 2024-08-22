@@ -8,7 +8,9 @@ exports.getChat = async (req, res) => {
   try {
     let chat = await Chat.findOne({
       participants: { $all: [loggedInUser, userId] },
-    }).populate('messages.sender');
+    })
+    .populate('participants', 'username')
+    .populate('messages.sender');
 
     if (!chat) {
       chat = new Chat({ participants: [loggedInUser, userId], messages: [] });

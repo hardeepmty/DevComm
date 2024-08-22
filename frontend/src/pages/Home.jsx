@@ -61,6 +61,8 @@ const Home = () => {
     fetchUsersAndPosts();
   }, []);
 
+
+
   useEffect(() => {
     const newSocket = io('http://localhost:5000');
     setSocket(newSocket);
