@@ -4,25 +4,26 @@ import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const Home = () => {
-  const [users, setUsers] = useState([]); // State to store users
-  const [posts, setPosts] = useState([]); // State to store posts
-  const [loading, setLoading] = useState(true); // State to handle loading
-  const [selectedUser, setSelectedUser] = useState(null); // State to store selected user for chat
-  const [chat, setChat] = useState(null); // State to store chat messages
-  const [message, setMessage] = useState(''); // State to store current message
-  const [socket, setSocket] = useState(null); // State to handle socket connection
+  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [chat, setChat] = useState(null);
+  const [message, setMessage] = useState('');
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const fetchUsersAndPosts = async () => {
       const token = localStorage.getItem('token');
+      const loggedInUserId = localStorage.getItem('userId'); // Retrieve userId
+      console.log(loggedInUserId)
 
-      if (!token) {
+      if (!token || !loggedInUserId) {
         window.location.href = '/login';
         return;
       }
 
       try {
-        // Fetch users
         const usersResponse = await axios.get('http://localhost:5000/api/user/getUsers', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -39,7 +40,6 @@ const Home = () => {
           alert('Failed to fetch users');
         }
 
-        // Fetch posts
         const postsResponse = await axios.get('http://localhost:5000/api/post/allPosts', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -62,7 +62,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:5000'); // Connect to the server
+    const newSocket = io('http://localhost:5000');
     setSocket(newSocket);
 
     return () => newSocket.close();
@@ -111,10 +111,11 @@ const Home = () => {
 
   const fetchChat = async (userId) => {
     const token = localStorage.getItem('token');
-    const loggedInUserId = localStorage.getItem('userId'); // Assuming you store the logged-in user's ID
+    const loggedInUserId = localStorage.getItem('userId'); // Retrieve userId here
+    console.log('Logged In User ID:', loggedInUserId); // Debug output
 
     try {
-      const chatResponse = await axios.get(`http://localhost:5000/api/chat/${userId}`, {
+      const chatResponse = await axios.get(`http://localhost:5000/api/chat/chat/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -138,11 +139,11 @@ const Home = () => {
     if (message.trim() === '') return;
 
     const token = localStorage.getItem('token');
-    const loggedInUserId = localStorage.getItem('userId'); // Assuming you store the logged-in user's ID
+    const loggedInUserId = localStorage.getItem('userId'); // Retrieve userId here
 
     try {
       const sendMessageResponse = await axios.post(
-        `http://localhost:5000/api/chat/${selectedUser}`,
+        `http://localhost:5000/api/chat/chat/${selectedUser}`,
         { text: message },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -248,21 +249,20 @@ const Home = () => {
       {selectedUser && chat && (
         <div style={{ marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
           <h2>Chat with {users.find(user => user._id === selectedUser)?.username}</h2>
-          <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
+          <ul style={{ maxHeight: '300px', overflowY: 'scroll' }}>
             {chat.messages.map((msg, index) => (
-              <li key={index} style={{ marginBottom: '10px' }}>
-                <strong>{msg.sender.username}: </strong>
-                <span>{msg.text}</span>
+              <li key={index} style={{ padding: '5px', borderBottom: '1px solid #ddd' }}>
+                <strong>{msg.senderId === selectedUser ? 'Them' : 'You'}:</strong> {msg.text}
               </li>
             ))}
           </ul>
-          <form onSubmit={sendMessage} style={{ display: 'flex', marginTop: '10px' }}>
+          <form onSubmit={sendMessage}>
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your message..."
-              style={{ flex: 1, marginRight: '10px' }}
+              placeholder="Type a message..."
+              style={{ width: 'calc(100% - 90px)', marginRight: '10px' }}
             />
             <button type="submit">Send</button>
           </form>
@@ -271,5 +271,6 @@ const Home = () => {
     </div>
   );
 };
+
 
 export default Home;

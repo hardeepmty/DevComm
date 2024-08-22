@@ -1,8 +1,14 @@
 const socketIO = require('socket.io');
-const Chat = require('../models/chat');
+const Chat = require('../models/chat')
 
 const initSocket = (server) => {
-  const io = socketIO(server);
+  const io = socketIO(server, {
+    cors: {
+      origin: 'http://localhost:5173', // Replace with your client's origin
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+  });
 
   io.on('connection', (socket) => {
     console.log('A user connected');
@@ -10,6 +16,7 @@ const initSocket = (server) => {
     socket.on('joinRoom', ({ userId, targetUserId }) => {
       const room = [userId, targetUserId].sort().join('-');
       socket.join(room);
+      console.log(`User ${userId} joined room ${room}`);
     });
 
     socket.on('sendMessage', async ({ userId, targetUserId, text }) => {
@@ -36,6 +43,8 @@ const initSocket = (server) => {
       console.log('User disconnected');
     });
   });
+
+  return io; // Return io to use in the app
 };
 
 module.exports = initSocket;

@@ -11,9 +11,10 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', { email, password }, { withCredentials: true });
-      
+      console.log(response.data.user._id)
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId', response.data.user._id);
         window.location.href = '/profile'; 
       } else {
         setError(response.data.message);
