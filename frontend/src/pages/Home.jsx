@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
 
 const Home = () => {
   const [users, setUsers] = useState([]); // State to store users
   const [posts, setPosts] = useState([]); // State to store posts
   const [loading, setLoading] = useState(true); // State to handle loading
+  const [selectedUser, setSelectedUser] = useState(null); // State to store selected user for chat
+  const [chat, setChat] = useState(null); // State to store chat messages
+  const [message, setMessage] = useState(''); // State to store current message
+  const [socket, setSocket] = useState(null); // State to handle socket connection
 
   useEffect(() => {
     const fetchUsersAndPosts = async () => {
@@ -56,6 +61,13 @@ const Home = () => {
     fetchUsersAndPosts();
   }, []);
 
+  useEffect(() => {
+    const newSocket = io('http://localhost:5000'); // Connect to the server
+    setSocket(newSocket);
+
+    return () => newSocket.close();
+  }, []);
+
   const handleFollowUnfollow = async (userId, isFollowing) => {
     const token = localStorage.getItem('token');
 
@@ -96,6 +108,76 @@ const Home = () => {
       alert(`Failed to ${isFollowing ? 'unfollow' : 'follow'} user`);
     }
   };
+
+  const fetchChat = async (userId) => {
+    const token = localStorage.getItem('token');
+    const loggedInUserId = localStorage.getItem('userId'); // Assuming you store the logged-in user's ID
+
+    try {
+      const chatResponse = await axios.get(`http://localhost:5000/api/chat/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+
+      if (chatResponse.data.success) {
+        setSelectedUser(userId);
+        setChat(chatResponse.data.chat);
+        socket.emit('joinRoom', { userId: loggedInUserId, targetUserId: userId });
+      } else {
+        alert('Failed to fetch chat');
+      }
+    } catch (error) {
+      console.error('Error fetching chat:', error);
+      alert('Failed to fetch chat');
+    }
+  };
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    if (message.trim() === '') return;
+
+    const token = localStorage.getItem('token');
+    const loggedInUserId = localStorage.getItem('userId'); // Assuming you store the logged-in user's ID
+
+    try {
+      const sendMessageResponse = await axios.post(
+        `http://localhost:5000/api/chat/${selectedUser}`,
+        { text: message },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
+      );
+
+      if (sendMessageResponse.data.success) {
+        socket.emit('sendMessage', {
+          userId: loggedInUserId,
+          targetUserId: selectedUser,
+          text: message,
+        });
+
+        setChat(sendMessageResponse.data.chat);
+        setMessage(''); // Clear the message input
+      } else {
+        alert('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message');
+    }
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('receiveMessage', (newMessage) => {
+        setChat(prevChat => ({
+          ...prevChat,
+          messages: [...prevChat.messages, newMessage],
+        }));
+      });
+    }
+  }, [socket]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -146,6 +228,7 @@ const Home = () => {
             >
               {user.isFollowing ? 'Unfollow' : 'Follow'}
             </button>
+            <button onClick={() => fetchChat(user._id)}>Chat</button>
           </li>
         ))}
       </ul>
@@ -160,6 +243,31 @@ const Home = () => {
           </li>
         ))}
       </ul>
+
+      {/* Chat section */}
+      {selectedUser && chat && (
+        <div style={{ marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
+          <h2>Chat with {users.find(user => user._id === selectedUser)?.username}</h2>
+          <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
+            {chat.messages.map((msg, index) => (
+              <li key={index} style={{ marginBottom: '10px' }}>
+                <strong>{msg.sender.username}: </strong>
+                <span>{msg.text}</span>
+              </li>
+            ))}
+          </ul>
+          <form onSubmit={sendMessage} style={{ display: 'flex', marginTop: '10px' }}>
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type your message..."
+              style={{ flex: 1, marginRight: '10px' }}
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

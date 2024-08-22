@@ -140,7 +140,7 @@ const Profile = () => {
       );
 
       if (response.data.success) {
-        setIsOpenToWork(!isOpenToWork);
+        setOpenToWork(!openToWork);
         alert('Open to Work status updated successfully');
       } else {
         alert('Failed to update Open to Work status');
