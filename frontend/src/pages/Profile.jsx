@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDzsU_fwgJNnYb0-B8uMqyl04B3mpWtvRU",
+  authDomain: "devcomm-491d0.firebaseapp.com",
+  projectId: "devcomm-491d0",
+  storageBucket: "devcomm-491d0.appspot.com",
+  messagingSenderId: "427598963445",
+  appId: "1:427598963445:web:43e3e72377351c859d9bbc",
+  measurementId: "G-0NVQ18Y79L"
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -7,6 +23,7 @@ const Profile = () => {
   const [editingField, setEditingField] = useState(null);
   const [fieldValue, setFieldValue] = useState('');
   const [newPostCaption, setNewPostCaption] = useState('');
+  const [newPostImage, setNewPostImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const [openToWork, setOpenToWork] = useState(false);
 
@@ -108,18 +125,38 @@ const Profile = () => {
     setNewPostCaption(e.target.value);
   };
 
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setNewPostImage(e.target.files[0]);
+    }
+  };
+
   const createNewPost = async () => {
     const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in');
+      return;
+    }
+
     try {
+      let imageUrl = '';
+      if (newPostImage) {
+        const storage = getStorage();
+        const storageRef = ref(storage, `images/${newPostImage.name}`);
+        await uploadBytes(storageRef, newPostImage);
+        imageUrl = await getDownloadURL(storageRef);
+      }
+
       const response = await axios.post(
         'http://localhost:5000/api/post/newPost',
-        { caption: newPostCaption },
+        { caption: newPostCaption, imageUrl },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
 
       if (response.data.success) {
         setPosts((prevPosts) => [response.data.post, ...prevPosts]);
         setNewPostCaption('');
+        setNewPostImage(null);
         alert('Post created successfully');
       } else {
         alert('Failed to create post');
@@ -247,7 +284,7 @@ const Profile = () => {
         {editingField === 'email' ? (
           <>
             <input
-              type="email"
+              type="text"
               value={fieldValue}
               onChange={handleFieldChange}
               required
@@ -263,65 +300,42 @@ const Profile = () => {
         )}
       </div>
 
-      <div>
-        <label>Bio: </label>
-        {editingField === 'bio' ? (
-          <>
-            <textarea
-              value={fieldValue}
-              onChange={handleFieldChange}
-            />
-            <button onClick={() => saveFieldChange('bio')}>Save</button>
-            <button onClick={() => setEditingField(null)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <span>{user.bio}</span>
-            <button onClick={() => handleFieldEdit('bio', user.bio)}>Edit</button>
-          </>
-        )}
-      </div>
-
-      <div>
-        <label>GitHub Username: </label>
-        {editingField === 'github' ? (
-          <>
-            <input
-              type="text"
-              value={fieldValue}
-              onChange={handleFieldChange}
-            />
-            <button onClick={() => saveFieldChange('github')}>Save</button>
-            <button onClick={() => setEditingField(null)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <span>{user.githubUsername}</span>
-            <button onClick={() => handleFieldEdit('github', user.githubUsername)}>Edit</button>
-          </>
-        )}
-      </div>
-
-      {/* New Post Creation */}
-      <div>
+      {/* New Post Form */}
+      <div style={{ marginTop: '20px' }}>
+        <h2>Create New Post</h2>
         <textarea
-          placeholder="Write a new post..."
           value={newPostCaption}
           onChange={handleNewPostChange}
+          placeholder="What's on your mind?"
+          rows="4"
+          style={{ width: '100%' }}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
         />
         <button onClick={createNewPost}>Post</button>
       </div>
 
-      {/* Display User's Posts */}
-      <div>
+      {/* Posts */}
+      <div style={{ marginTop: '20px' }}>
+        <h2>Posts</h2>
         {posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post._id}>
+            <div key={post._id} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px' }}>
               <p>{post.caption}</p>
+              {post.imageUrl && (
+                <img
+                  src={post.imageUrl}
+                  alt="Post"
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              )}
             </div>
           ))
         ) : (
-          <p>No posts yet.</p>
+          <p>No posts yet</p>
         )}
       </div>
 

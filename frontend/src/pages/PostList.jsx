@@ -36,6 +36,43 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
+  const handleLike = async (postId) => {
+    const token = localStorage.getItem('token');
+    const loggedInUser = localStorage.getItem('userId') ;
+    console.log(postId)
+    console.log(loggedInUser)
+
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+
+    try {
+      const likeResponse = await axios.post(
+        `http://localhost:5000/api/post/like/${postId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
+      );
+
+      if (likeResponse.data.success) {
+        
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post._id === postId ? { ...post, likes: [...post.likes, likeResponse.data.user] } : post
+          )
+        );
+      } else {
+        alert('Failed to like the post');
+      }
+    } catch (error) {
+      console.error('Error liking post:', error);
+      alert('Failed to like the post');
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -48,11 +85,12 @@ const PostList = () => {
     <div>
       <h1>All Posts</h1>
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post._id}>
             <p>Author: {post.author.username}</p>
             <p>{post.caption}</p>
             <p>Likes: {post.likes.length}</p>
+            <button onClick={() => handleLike(post._id)}>Like</button>
           </li>
         ))}
       </ul>

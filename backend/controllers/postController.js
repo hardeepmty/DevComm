@@ -3,14 +3,14 @@ const User = require('../models/user');
 
 const newPost = async (req, res) => {
   try {
-    const { caption } = req.body;
+    const { caption, imageUrl } = req.body; // Add imageUrl
     const author = req.user_; 
 
     if (!caption) {
       return res.status(400).json({ message: 'Caption is required' });
     }
 
-    const post = new Post({ caption, author });
+    const post = new Post({ caption, author, imageUrl }); // Save imageUrl
     await post.save();
 
     await User.findByIdAndUpdate(
@@ -75,4 +75,18 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { newPost, getUserPosts, getPostById, getAllPosts };
+const likePost = async(req,res) =>{
+  try{
+    const likedBy = req.user_ ;
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+
+    if(!post) return res.status(404).json({message:"Post not found"}) ;
+    await post.updateOne({$addToSet: {likes: likedBy}}) ;
+    await post.save() ;
+  }catch(error){
+    console.log(error)
+  }
+}
+
+module.exports = { newPost, getUserPosts, getPostById, getAllPosts, likePost};
