@@ -88,6 +88,13 @@ const PostList = () => {
         {posts.map((post) => (
           <li key={post._id}>
             <p>Author: {post.author.username}</p>
+            {post.imageUrl && (
+                <img
+                  src={post.imageUrl}
+                  alt="Post"
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              )}
             <p>{post.caption}</p>
             <p>Likes: {post.likes.length}</p>
             <button onClick={() => handleLike(post._id)}>Like</button>
