@@ -9,7 +9,6 @@ import TrendingRepositories from './pages/TrendingRepositories';
 import PopularArticles from './pages/PopularArticles';
 import Try from './pages/Try';
 import Chat from './pages/Chat';
-import ImageUpload from './pages/dummy';
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
           <Route path='/dev' element={<PopularArticles/>}/>
           <Route path='/try' element={<Try/>}/>
           <Route path="/chat/:userId" element={<Chat/>} />
-          <Route path='/img-upd' element={<ImageUpload/>}/>
         </Routes>
       </div>
     </Router>

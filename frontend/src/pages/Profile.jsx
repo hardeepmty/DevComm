@@ -3,7 +3,6 @@ import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDzsU_fwgJNnYb0-B8uMqyl04B3mpWtvRU",
   authDomain: "devcomm-491d0.firebaseapp.com",
@@ -14,8 +13,7 @@ const firebaseConfig = {
   measurementId: "G-0NVQ18Y79L"
 };
 
-// Initialize Firebase
-initializeApp(firebaseConfig);
+  initializeApp(firebaseConfig);
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -195,6 +193,7 @@ const Profile = () => {
   if (!user) {
     return <div>Profile not found</div>;
   }
+
 
   return (
     <div>

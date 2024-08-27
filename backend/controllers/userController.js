@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require("../models/user");
+const Post = require("../models/posts");
 const axios = require('axios')
 
 const register = async (req, res) => {
@@ -92,15 +93,15 @@ const login = async (req, res) => {
 
     const token = await jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
-    const populatedPosts = await Promise.all(
-      user.posts.map(async (postId) => {
-        const post = await Post.findById(postId);
-        if (post.author.equals(user._id)) {
-          return post;
-        }
-        return null;
-      })
-    );
+    // const populatedPosts = await Promise.all(
+    //   user.posts.map(async (postId) => {
+    //     const post = await Post.findById(postId);
+    //     if (post.author.equals(user._id)) {
+    //       return post;
+    //     }
+    //     return null;
+    //   })
+    // );
 
     user = {
       _id: user._id,
@@ -110,7 +111,7 @@ const login = async (req, res) => {
       bio: user.bio,
       followers: user.followers,
       following: user.following,
-      posts: populatedPosts,
+      // posts: populatedPosts,
       repositories: user.repositories,
     };
 
