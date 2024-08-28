@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -83,6 +84,12 @@ const UserList = () => {
     }
   };
 
+  const filteredUsers = users.filter(user =>
+    user.username.toLowerCase().includes(search.toLowerCase()) ||
+    user.email.toLowerCase().includes(search.toLowerCase()) ||
+    user.github.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -94,8 +101,15 @@ const UserList = () => {
   return (
     <div>
       <h1>All Users</h1>
+      <input
+        type="text"
+        placeholder="Search users..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ marginBottom: '20px', padding: '8px', width: '50%' }}
+      />
       <ul>
-        {users.map(user => (
+        {filteredUsers.map(user => (
           <li key={user._id} style={{ marginBottom: '20px' }}>
             <Link to={`/profile/${user._id}`}>
               {user.profilePicture && (
