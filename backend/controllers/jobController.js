@@ -17,5 +17,14 @@ const newJob = async(req,res)=>{
   }
 }
 
+const getAllJobs = async (req, res) => {
+  try {
+    const jobs = await Job.find(); 
+    return res.status(200).json(jobs);
+  } catch (error) {
+    console.error('Error getting jobs:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
-module.exports = {newJob} ;
+module.exports = {newJob,getAllJobs} ;

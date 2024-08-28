@@ -1,0 +1,172 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the Profile */
+.profile-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.profile-header button {
+  background-color: #0095f6;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-header button:hover {
+  background-color: #007bb5;
+}
+
+/* Followers and Following */
+.follow-list {
+  margin: 20px 0;
+}
+
+.follow-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.follow-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.follow-list span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+
+/* Edit Fields */
+.edit-field {
+  margin-bottom: 20px;
+}
+
+.edit-field span {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.edit-field input {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-field button {
+  background-color: #0095f6;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit-field button:hover {
+  background-color: #007bb5;
+}
+
+/* New Post Form */
+.new-post-form {
+  margin-top: 20px;
+}
+
+.new-post-form textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.new-post-form input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.new-post-form button {
+  background-color: #0095f6;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.new-post-form button:hover {
+  background-color: #007bb5;
+}
+
+/* Posts */
+.posts {
+  margin-top: 20px;
+}
+
+.post {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.post img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #0095f6;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.logout-button:hover {
+  background-color: #007bb5;
+}

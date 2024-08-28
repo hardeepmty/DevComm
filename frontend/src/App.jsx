@@ -9,6 +9,8 @@ import TrendingRepositories from './pages/TrendingRepositories';
 import PopularArticles from './pages/PopularArticles';
 import Try from './pages/Try';
 import Chat from './pages/Chat';
+import PostJobPage from './pages/PostJobPage';
+import JobListingsPage from './pages/JobListingsPage';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path='/dev' element={<PopularArticles/>}/>
           <Route path='/try' element={<Try/>}/>
           <Route path="/chat/:userId" element={<Chat/>} />
+          <Route path='/postJob' element={<PostJobPage/>}/>
+          <Route path='/getJobs' element={<JobListingsPage/>}/>
         </Routes>
       </div>
     </Router>
