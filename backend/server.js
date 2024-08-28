@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const jobRoutes= require('./routes/jobRoutes')
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const initSocket = require('./socket/socket');
@@ -33,6 +34,7 @@ app.get('/', (req, res) => res.json({ message: "hello Ji" }));
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/job",jobRoutes) ;
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
