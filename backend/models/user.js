@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     github: { type: String, default: '' },
     linkedin: { type: String, default: '' },
     gender: { type: String, enum: ['male', 'female'] },
+    coins: {type:Number,default:0},
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],

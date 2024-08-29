@@ -111,6 +111,7 @@ const login = async (req, res) => {
       bio: user.bio,
       followers: user.followers,
       following: user.following,
+      coins:user.coins,
       // posts: populatedPosts,
       repositories: user.repositories,
     };

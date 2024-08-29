@@ -361,6 +361,7 @@ const Profile = () => {
       <div className="profile-buttons" style={{backgroundColor:"pink"}}>
         <button onClick={handleShowFollowers}>Followers {user.followers.length}</button>
         <button onClick={handleShowFollowing}>Following {user.following.length}</button>
+        <p>Coins:{user.coins}</p>
       </div>
 
       {/* New Post Popup */}
