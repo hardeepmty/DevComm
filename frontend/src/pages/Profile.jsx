@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
+import './Profile.css'; // Import the CSS file
 
 const firebaseConfig = {
   apiKey: "AIzaSyDzsU_fwgJNnYb0-B8uMqyl04B3mpWtvRU",
@@ -13,7 +14,7 @@ const firebaseConfig = {
   measurementId: "G-0NVQ18Y79L"
 };
 
-  initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,9 @@ const Profile = () => {
   const [newPostImage, setNewPostImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const [openToWork, setOpenToWork] = useState(false);
+  const [showNewPostPopup, setShowNewPostPopup] = useState(false);
+  const [showFollowersPopup, setShowFollowersPopup] = useState(false);
+  const [showFollowingPopup, setShowFollowingPopup] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -155,6 +159,7 @@ const Profile = () => {
         setPosts((prevPosts) => [response.data.post, ...prevPosts]);
         setNewPostCaption('');
         setNewPostImage(null);
+        setShowNewPostPopup(false);
         alert('Post created successfully');
       } else {
         alert('Failed to create post');
@@ -186,6 +191,19 @@ const Profile = () => {
     }
   };
 
+  const handleShowFollowers = () => {
+    setShowFollowersPopup(true);
+  };
+
+  const handleShowFollowing = () => {
+    setShowFollowingPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowFollowersPopup(false);
+    setShowFollowingPopup(false);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -194,143 +212,130 @@ const Profile = () => {
     return <div>Profile not found</div>;
   }
 
-
   return (
-    <div>
-      <h1>{user.username}'s Profile</h1>
-      {/* Open to Work Toggle */}
-      <div>
-        <label>Open to Work: </label>
-        <input
-          type="checkbox"
-          checked={openToWork}
-          onChange={toggleOpenToWork}
-        />
-      </div>
-      <p>Followers: {user.followers.length}</p>
-      <ul>
-        {user.followers.map((follower) => (
-          <li key={follower._id}>
-            {follower.username}
-            {follower.isOnline && (
-              <span style={{
-                display: 'inline-block',
-                width: '10px',
-                height: '10px',
-                backgroundColor: 'green',
-                borderRadius: '50%',
-                marginLeft: '8px',
-                verticalAlign: 'middle',
-              }}></span>
-            )}
-          </li>
-        ))}
-      </ul>
-      <p>Following: {user.following.length}</p>
-      <ul>
-        {user.following.map((following) => (
-          <li key={following._id}>
-            {following.username}
-            {following.isOnline && (
-              <span style={{
-                display: 'inline-block',
-                width: '10px',
-                height: '10px',
-                backgroundColor: 'green',
-                borderRadius: '50%',
-                marginLeft: '8px',
-                verticalAlign: 'middle',
-              }}></span>
-            )}
-          </li>
-        ))}
-      </ul>
+    <div className="profile-container">
+      {/* Left Section: Profile Info */}
+      <div className="profile-info" style={{backgroundColor:"green"}}>
+        {/* Profile Picture */}
+        {user.profilePicture && (
+          <div className="profile-picture">
+            <img
+              src={user.profilePicture}
+              alt={`${user.username}'s profile`}
+              style={{borderRadius:"100%", width:"300px"}}
+            />
+          </div>
+        )}
 
-      {/* Profile Picture */}
-      {user.profilePicture && (
-        <div style={{ marginBottom: '20px' }}>
-          <img
-            src={user.profilePicture}
-            alt={`${user.username}'s profile`}
-            style={{ width: '150px', borderRadius: '50%' }}
-          />
+        <div className="profile-field">
+          <label>Username: </label>
+          {editingField === 'username' ? (
+            <>
+              <input
+                type="text"
+                value={fieldValue}
+                onChange={handleFieldChange}
+                required
+              />
+              <button onClick={() => saveFieldChange('username')}>Save</button>
+              <button onClick={() => setEditingField(null)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <span>{user.username}</span>
+              <button onClick={() => handleFieldEdit('username', user.username)}>Edit</button>
+            </>
+          )}
         </div>
-      )}
 
-      <div>
-        <label>Username: </label>
-        {editingField === 'username' ? (
-          <>
-            <input
-              type="text"
-              value={fieldValue}
-              onChange={handleFieldChange}
-              required
-            />
-            <button onClick={() => saveFieldChange('username')}>Save</button>
-            <button onClick={() => setEditingField(null)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <span>{user.username}</span>
-            <button onClick={() => handleFieldEdit('username', user.username)}>Edit</button>
-          </>
-        )}
+        <div className="profile-field">
+          <label>Email: </label>
+          {editingField === 'email' ? (
+            <>
+              <input
+                type="text"
+                value={fieldValue}
+                onChange={handleFieldChange}
+                required
+              />
+              <button onClick={() => saveFieldChange('email')}>Save</button>
+              <button onClick={() => setEditingField(null)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <span>{user.email}</span>
+              <button onClick={() => handleFieldEdit('email', user.email)}>Edit</button>
+            </>
+          )}
+        </div>
+
+        {/* Bio */}
+        <div className="profile-field">
+          <label>Bio: </label>
+          {editingField === 'bio' ? (
+            <>
+              <textarea
+                value={fieldValue}
+                onChange={handleFieldChange}
+                required
+              />
+              <button onClick={() => saveFieldChange('bio')}>Save</button>
+              <button onClick={() => setEditingField(null)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <p>{user.bio}</p>
+              <button onClick={() => handleFieldEdit('bio', user.bio)}>Edit</button>
+            </>
+          )}
+        </div>
+
+        <div className="profile-field">
+          <label>LinkedIn: </label>
+          {editingField === 'linkedin' ? (
+            <>
+              <input
+                type="text"
+                value={fieldValue}
+                onChange={handleFieldChange}
+                required
+              />
+              <button onClick={() => saveFieldChange('linkedin')}>Save</button>
+              <button onClick={() => setEditingField(null)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <span>{user.linkedin}</span>
+              <button onClick={() => handleFieldEdit('linkedin', user.linkedin)}>Edit</button>
+            </>
+          )}
+        </div>
+
+
+        {/* Open to Work */}
+        <div className="profile-field">
+          <label>Open to Work: </label>
+          <button onClick={toggleOpenToWork}>
+            {openToWork ? 'Remove Open to Work' : 'Add Open to Work'}
+          </button>
+        </div>
+        <button onClick={() => setShowNewPostPopup(true)}>New Post</button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
 
-      <div>
-        <label>Email: </label>
-        {editingField === 'email' ? (
-          <>
-            <input
-              type="text"
-              value={fieldValue}
-              onChange={handleFieldChange}
-              required
-            />
-            <button onClick={() => saveFieldChange('email')}>Save</button>
-            <button onClick={() => setEditingField(null)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <span>{user.email}</span>
-            <button onClick={() => handleFieldEdit('email', user.email)}>Edit</button>
-          </>
-        )}
-      </div>
-
-      {/* New Post Form */}
-      <div style={{ marginTop: '20px' }}>
-        <h2>Create New Post</h2>
-        <textarea
-          value={newPostCaption}
-          onChange={handleNewPostChange}
-          placeholder="What's on your mind?"
-          rows="4"
-          style={{ width: '100%' }}
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <button onClick={createNewPost}>Post</button>
-      </div>
-
-      {/* Posts */}
-      <div style={{ marginTop: '20px' }}>
-        <h2>Posts</h2>
+      {/* Center Section: User Posts */}
+      <div className="profile-posts" style={{backgroundColor:"red"}}>
         {posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post._id} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px' }}>
-              <p>{post.caption}</p>
+            <div className="post" key={post._id}>
               {post.imageUrl && (
                 <img
                   src={post.imageUrl}
-                  alt="Post"
-                  style={{ maxWidth: '100%', height: 'auto' }}
+                  alt={post.caption}
+                  className="post-image"
                 />
               )}
+              <p>{post.caption}</p>
             </div>
           ))
         ) : (
@@ -338,7 +343,72 @@ const Profile = () => {
         )}
       </div>
 
-      <button onClick={handleLogout}>Logout</button>
+      {/* Right Section: Buttons and Popup */}
+      <div className="profile-buttons" style={{backgroundColor:"pink"}}>
+        <button onClick={handleShowFollowers}>Followers {user.followers.length}</button>
+        <button onClick={handleShowFollowing}>Following {user.following.length}</button>
+      </div>
+
+      {/* New Post Popup */}
+      {showNewPostPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Create New Post</h2>
+            <textarea
+              placeholder="Caption"
+              value={newPostCaption}
+              onChange={handleNewPostChange}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            <button onClick={createNewPost}>Post</button>
+            <button onClick={() => setShowNewPostPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* Followers Popup */}
+      {showFollowersPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Followers</h2>
+            {/* Map through user's followers */}
+            {user.followers && user.followers.length > 0 ? (
+              <ul>
+                {user.followers.map((follower) => (
+                  <li key={follower._id}>{follower.username}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No followers</p>
+            )}
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* Following Popup */}
+      {showFollowingPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Following</h2>
+            {/* Map through user's following */}
+            {user.following && user.following.length > 0 ? (
+              <ul>
+                {user.following.map((following) => (
+                  <li key={following._id}>{following.username}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>Not following anyone</p>
+            )}
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
