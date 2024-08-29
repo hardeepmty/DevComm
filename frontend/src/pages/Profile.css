@@ -1,8 +1,8 @@
-/* Style for the profile container and sections */
 .profile-container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  font-family: 'SUSE';
 }
 
 .profile-info {
@@ -32,27 +32,30 @@
   height: 30px;
 }
 
-.profile-posts{
+.profile-posts {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: 90vh;
+  overflow-y: auto; 
+  padding-top: 20px; 
 }
 
-/* Style for individual posts */
 .post {
   margin-bottom: 20px;
   background-color: wheat;
   width: 600px;
   display: flex;
   flex-direction: column;
+  padding: 10px; 
+  box-sizing: border-box; 
 }
-
 
 .post-image {
   width: 100%;
-  max-width: 400px;
-  height: auto;
+  max-width: 600px;
+  max-height: 400px;
   margin-bottom: 10px;
 }
 

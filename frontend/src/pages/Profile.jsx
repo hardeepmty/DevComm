@@ -324,24 +324,38 @@ const Profile = () => {
       </div>
 
       {/* Center Section: User Posts */}
-      <div className="profile-posts" style={{backgroundColor:"red"}}>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <div className="post" key={post._id}>
-              {post.imageUrl && (
-                <img
-                  src={post.imageUrl}
-                  alt={post.caption}
-                  className="post-image"
-                />
-              )}
-              <p>{post.caption}</p>
-            </div>
-          ))
-        ) : (
-          <p>No posts yet</p>
+      <div className="profile-posts" style={{ backgroundColor: "red" }}>
+  {posts.length > 0 ? (
+    posts.map((post) => (
+      <div className="post" key={post._id}>
+        {post.imageUrl && (
+          <img
+            src={post.imageUrl}
+            alt={post.caption}
+            className="post-image"
+          />
         )}
+        <p>{post.caption}</p>
+        <p>Likes: {post.likes.length}</p>
+        <p>Comments: {post.comments.length}</p>
+
+        {/* Displaying each comment with the respective author */}
+        <div className="comments-section">
+          {post.comments.map((comment) => (
+            <div key={comment._id} className="comment">
+              <p>
+                <strong>{comment.author.username}:</strong> {comment.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
+    ))
+  ) : (
+    <p>No posts to display</p>
+  )}
+</div>
+
 
       {/* Right Section: Buttons and Popup */}
       <div className="profile-buttons" style={{backgroundColor:"pink"}}>

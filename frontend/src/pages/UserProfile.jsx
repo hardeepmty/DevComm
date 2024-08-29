@@ -7,6 +7,7 @@ const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +31,8 @@ const UserProfile = () => {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
+
+        
 
         if (userResponse.data.success && usersResponse.data.success) {
           setUser(userResponse.data.user);
@@ -107,7 +110,7 @@ const UserProfile = () => {
   const handleUserClick = (id) => {
     navigate(`/profile/${id}`);
   };
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -148,7 +151,7 @@ const UserProfile = () => {
             </div>
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevent navigation on button click
+                e.stopPropagation();
                 handleFollowUnfollow(follower._id, follower.isFollowing);
               }}
             >
@@ -175,7 +178,7 @@ const UserProfile = () => {
             </div>
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevent navigation on button click
+                e.stopPropagation(); 
                 handleFollowUnfollow(following._id, following.isFollowing);
               }}
             >
@@ -184,6 +187,10 @@ const UserProfile = () => {
           </li>
         ))}
       </ul>
+
+      <h2>Posts</h2>
+      <div>{user.posts}</div>
+
     </div>
   );
 };

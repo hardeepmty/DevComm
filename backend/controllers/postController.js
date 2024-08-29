@@ -1,17 +1,18 @@
 const Post = require('../models/posts');
 const User = require('../models/user'); 
-const Comment = require('../models/comments')
+const Comment = require('../models/comments');
+const { model } = require('mongoose');
 
 const newPost = async (req, res) => {
   try {
-    const { caption, imageUrl } = req.body; // Add imageUrl
+    const { caption, imageUrl } = req.body; 
     const author = req.user_; 
 
     if (!caption) {
       return res.status(400).json({ message: 'Caption is required' });
     }
 
-    const post = new Post({ caption, author, imageUrl }); // Save imageUrl
+    const post = new Post({ caption, author, imageUrl });
     await post.save();
 
     await User.findByIdAndUpdate(
@@ -31,7 +32,20 @@ const getUserPosts = async (req, res) => {
   try {
     const userId = req.user_; 
 
-    const user = await User.findById(userId).populate('posts').exec();
+    const user = await User.findById(userId)
+      .populate({
+        path: 'posts',
+        populate: [ 
+          { path: 'likes', model: 'User' },
+          { path: 'comments', model: 'Comment',
+            populate: {
+              path: 'author',
+              model: 'User',
+            }
+           }
+        ]
+      })
+      .exec();
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -43,6 +57,7 @@ const getUserPosts = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to fetch posts' });
   }
 };
+
 
 const getPostById = async (req, res) => {
   try {
