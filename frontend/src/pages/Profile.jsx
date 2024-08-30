@@ -324,7 +324,7 @@ const Profile = () => {
       </div>
 
       {/* Center Section: User Posts */}
-      <div className="profile-posts" style={{ backgroundColor: "red" }}>
+      <div className="profile-posts" >
   {posts.length > 0 ? (
     posts.map((post) => (
       <div className="post" key={post._id}>
@@ -362,6 +362,21 @@ const Profile = () => {
         <button onClick={handleShowFollowers}>Followers {user.followers.length}</button>
         <button onClick={handleShowFollowing}>Following {user.following.length}</button>
         <p>Coins:{user.coins}</p>
+
+        <h2>Repositories</h2>
+            {user.repositories && user.repositories.length > 0 ? (
+              <ul>
+                {user.repositories.slice(0,5).map((repository) => (
+                  <li key={repository._id}>
+                    <p>{repository.name}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No Repos</p>
+            )}
+
+
       </div>
 
       {/* New Post Popup */}

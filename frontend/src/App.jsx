@@ -11,6 +11,7 @@ import Try from './pages/Try';
 import Chat from './pages/Chat';
 import PostJobPage from './pages/PostJobPage';
 import JobListingsPage from './pages/JobListingsPage';
+import './App.css'
 
 function App() {
   return (
