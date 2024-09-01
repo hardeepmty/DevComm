@@ -324,9 +324,9 @@ const Profile = () => {
       </div>
 
       {/* Center Section: User Posts */}
-      <div className="profile-posts" >
+<div className="profile-posts">
   {posts.length > 0 ? (
-    posts.map((post) => (
+    [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((post) => (
       <div className="post" key={post._id}>
         {post.imageUrl && (
           <img
@@ -335,7 +335,7 @@ const Profile = () => {
             className="post-image"
           />
         )}
-        <p>{post.caption}</p>
+        <p className='caption'>{post.caption}</p>
         <p>Likes: {post.likes.length}</p>
         <p>Comments: {post.comments.length}</p>
 
@@ -357,6 +357,7 @@ const Profile = () => {
 </div>
 
 
+
       {/* Right Section: Buttons and Popup */}
       <div className="profile-buttons" style={{backgroundColor:"pink"}}>
         <button onClick={handleShowFollowers}>Followers {user.followers.length}</button>
@@ -367,9 +368,9 @@ const Profile = () => {
             {user.repositories && user.repositories.length > 0 ? (
               <ul>
                 {user.repositories.slice(0,5).map((repository) => (
-                  <li key={repository._id}>
+                  <p key={repository._id}>
                     <p>{repository.name}</p>
-                  </li>
+                  </p>
                 ))}
               </ul>
             ) : (

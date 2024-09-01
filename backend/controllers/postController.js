@@ -76,6 +76,36 @@ const getPostById = async (req, res) => {
   }
 };
 
+const getPostsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId).populate({
+      path: 'posts',
+      populate: [
+        { path: 'likes', model: 'User' },
+        { path: 'comments', model: 'Comment',
+          populate: {
+            path: 'author',
+            model: 'User',
+          }
+        }
+      ]
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ success: true, posts: user.posts });
+  } catch (error) {
+    console.error('Error fetching posts by user ID:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch posts' });
+  }
+};
+
+
+
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
@@ -180,4 +210,4 @@ const comment = async (req, res) => {
 // };
 
 
-module.exports = { newPost, getUserPosts, getPostById, getAllPosts, likePost, unlikePost, comment};
+module.exports = { newPost, getUserPosts, getPostById, getAllPosts, likePost, unlikePost, comment, getPostsByUserId};

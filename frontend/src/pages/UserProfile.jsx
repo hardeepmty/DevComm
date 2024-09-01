@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const UserProfile = () => {
@@ -32,8 +32,6 @@ const UserProfile = () => {
           withCredentials: true,
         });
 
-        
-
         if (userResponse.data.success && usersResponse.data.success) {
           setUser(userResponse.data.user);
 
@@ -47,9 +45,21 @@ const UserProfile = () => {
         } else {
           alert('Failed to fetch user or users');
         }
+
+        // Fetch posts of the specific user
+        const postsResponse = await axios.get(`http://localhost:5000/api/post/user/${userId}/posts`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
+
+        if (postsResponse.data.success) {
+          setPosts(postsResponse.data.posts);
+        } else {
+          alert('Failed to fetch posts');
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
-        alert('Failed to fetch user or users');
+        alert('Failed to fetch posts');
       } finally {
         setLoading(false);
       }
@@ -189,8 +199,18 @@ const UserProfile = () => {
       </ul>
 
       <h2>Posts</h2>
-      <div>{user.posts}</div>
-
+      {posts.length > 0 ? (
+        <div>
+          {posts.map((post) => (
+            <div key={post._id}>
+              {post.imageUrl && <img src={post.imageUrl} alt="Post image" width="100" />}
+              <p>{post.caption}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No posts to display</p>
+      )}
     </div>
   );
 };
