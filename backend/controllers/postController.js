@@ -109,10 +109,10 @@ const getPostsByUserId = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-    .populate('author', 'username')
+    .populate('author', 'username profilePicture')
       .populate({
         path: 'comments',
-        populate: { path: 'author', select: 'username' } 
+        populate: { path: 'author', select: 'username profilePicture' } 
       })
       .exec();
 

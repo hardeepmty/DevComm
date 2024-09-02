@@ -365,17 +365,26 @@ const Profile = () => {
         <p>Coins:{user.coins}</p>
 
         <h2>Repositories</h2>
-            {user.repositories && user.repositories.length > 0 ? (
-              <ul>
-                {user.repositories.slice(0,5).map((repository) => (
-                  <p key={repository._id}>
-                    <p>{repository.name}</p>
-                  </p>
-                ))}
-              </ul>
-            ) : (
-              <p>No Repos</p>
-            )}
+{user.repositories && user.repositories.length > 0 ? (
+  <ul style={{ listStyleType: 'none', padding: 0 }}>
+    {user.repositories.slice(0, 5).map((repository) => (
+      <li key={repository._id} style={{ marginBottom: '10px' }}>
+        <div className='repo-box'
+          style={{
+            backgroundColor: 'red',
+            color: 'white',
+            padding: '10px',
+            borderRadius: '5px',
+          }}
+        >
+          {repository.name}
+        </div>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>No Repos</p>
+)}
 
 
       </div>

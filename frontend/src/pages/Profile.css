@@ -152,6 +152,14 @@
   background: #2563eb;
 }
 
+
+.repo-box{
+  background-color: 'red';
+  color: 'white';
+  padding: '10px';
+  border-radius: '5px';
+}
+
 /* Popup Overlay */
 .popup-overlay {
   position: fixed;
@@ -207,4 +215,95 @@
 
 .popup-content button:hover {
   background: #2563eb;
+}
+
+
+
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .profile-info,
+  .profile-buttons {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .profile-buttons {
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-posts {
+    margin: 0;
+    height: auto;
+  }
+
+  .post {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .post-image {
+    max-height: 300px;
+  }
+}
+
+/* General Styles for Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .profile-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .profile-info,
+  .profile-buttons {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .profile-posts {
+    margin: 0;
+    height: auto;
+  }
+
+  .post {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .post-image {
+    max-height: 350px;
+  }
+}
+
+/* General Styles for Larger Screens */
+@media (min-width: 1025px) {
+  .profile-container {
+    flex-direction: row;
+    padding: 20px;
+  }
+
+  .profile-info {
+    width: 27%;
+  }
+
+  .profile-posts {
+    flex: 1;
+    margin: 0 20px;
+    height: 100vh;
+  }
+
+  .profile-buttons {
+    width: 20%;
+  }
+
+  .post {
+    width: 100%;
+    max-width: 700px;
+  }
 }

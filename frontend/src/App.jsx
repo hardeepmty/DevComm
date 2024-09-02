@@ -11,12 +11,14 @@ import Try from './pages/Try';
 import Chat from './pages/Chat';
 import PostJobPage from './pages/PostJobPage';
 import JobListingsPage from './pages/JobListingsPage';
+import Navbar from './components/Navbar';
 import './App.css'
 
 function App() {
   return (
     <Router>
       <div className="App">
+      <Navbar />
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />

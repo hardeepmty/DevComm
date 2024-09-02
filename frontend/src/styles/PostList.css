@@ -1,0 +1,140 @@
+.profile-posts-list {
+  flex: 1;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  background-color: rgb(0, 0, 0);
+  padding: 20px;
+}
+
+.profile-posts-list::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+}
+
+
+
+
+.post {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-picture {
+  width: 40px; /* Adjust size as needed */
+  height: 40px;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;
+  margin-right: 10px; /* Space between picture and username */
+}
+
+.caption {
+  font-weight: bold;
+  margin: 0;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.like-button {
+  margin-right: 10px;
+}
+
+.likes-count {
+  font-weight: bold;
+}
+
+.comments-section {
+  margin-top: 10px;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-profile-picture {
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;
+  margin-right: 10px; /* Space between picture and comment text */
+}
+
+.add-comment-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.post-comment-button {
+  padding: 8px;
+  border: none;
+  background-color: #0095f6;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-comment-button:hover {
+  background-color: #007bb5;
+}
+
+
+
+/* PostList.css */
+
+.comment-form {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.add-comment-input {
+  flex: 1;
+  padding: 8px 40px 8px 12px; /* Add extra padding on the right for the button */
+  border: 1px solid #ddd;
+  border-radius: 20px; /* Adjust for rounded corners */
+  outline: none;
+}
+
+.post-comment-button {
+  position: absolute;
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  cursor: pointer;
+  color: #0095f6;
+  background: transparent !important;
+}
+
+.post-comment-butto{
+  background-color: transparent;
+}
+
