@@ -222,7 +222,7 @@ const Profile = () => {
             <img
               src={user.profilePicture}
               alt={`${user.username}'s profile`}
-              style={{borderRadius:"100%", width:"300px"}}
+              style={{borderRadius:"100%", width:"200px"}}
             />
           </div>
         )}

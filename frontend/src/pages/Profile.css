@@ -28,6 +28,9 @@
   margin-bottom: 20px;
 } */
 
+
+
+
 .profile-field {
   margin-bottom: 20px;
   text-align: left;
@@ -216,8 +219,6 @@
 .popup-content button:hover {
   background: #2563eb;
 }
-
-
 
 /* General Styles for Smaller Screens */
 @media (max-width: 768px) {

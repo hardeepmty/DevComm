@@ -12,7 +12,10 @@ import Chat from './pages/Chat';
 import PostJobPage from './pages/PostJobPage';
 import JobListingsPage from './pages/JobListingsPage';
 import Navbar from './components/Navbar';
+import CodingChallenge from './pages/CodingChallenge'
 import './App.css'
+import CodingAssistant from './pages/CodingAssistant';
+import CodeEditor from './pages/CodeEditor';
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
           <Route path="/chat/:userId" element={<Chat/>} />
           <Route path='/postJob' element={<PostJobPage/>}/>
           <Route path='/getJobs' element={<JobListingsPage/>}/>
+          <Route path='/code' element={<CodingChallenge/>}/>
+          <Route path='/codeass' element={<CodingAssistant/>}/>
+          <Route path='/codeeditor' element={<CodeEditor/>}/>
         </Routes>
       </div>
     </Router>

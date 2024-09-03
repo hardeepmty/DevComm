@@ -166,10 +166,10 @@ const PostList = () => {
                 <img
                   src={post.author.profilePicture}
                   alt="Profile"
-                  className="profile-picture"
+                  className="profile-picture-list"
                 />
               )}
-              <p className="caption">Author: {post.author.username}</p>
+              <p className="caption">{post.author.username}</p>
             </div>
             {post.imageUrl && (
               <img
