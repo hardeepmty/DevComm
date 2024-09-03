@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import fallbackImage from '../images/user.png'; 
-import '../styles/UserList.css'
+import '../styles/UserList.css';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -93,59 +93,50 @@ const UserList = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="userlist-loading">Loading...</div>;
   }
 
   if (users.length === 0) {
-    return <div>No users found</div>;
+    return <div className="userlist-no-users">No users found</div>;
   }
 
   return (
-    <div>
-      <h1>All Users</h1>
+    <div className="userlist-container" style={{backgroundColor:"red"}}>
+      <h1 className="userlist-title">All Users</h1>
       <input
         type="text"
         placeholder="Search users..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ marginBottom: '20px', padding: '8px', width: '80%' }}
+        className="userlist-search-input"
       />
-      <ul>
+      <ul className="userlist">
         {filteredUsers.map(user => (
-          <li key={user._id} style={{ marginBottom: '20px' }}>
-            <Link to={`/profile/${user._id}`}>
+          <li key={user._id} className="userlist-item">
+            <Link to={`/profile/${user._id}`} className="userlist-info" style={{textDecoration:"none"}}>
               <img
-                src={user.profilePicture || fallbackImage} // Use fallback image if profilePicture is not available
+                src={user.profilePicture || fallbackImage}
                 alt={`${user.username}'s profile`}
-                width="50"
-                height="50"
-                style={{ borderRadius: '50%', marginRight: '10px' }}
+                className="userlist-profile-picture"
               />
-              <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span className="userlist-username">
                 {user.username}
                 {user.openToWork && (
-                  <span
-                    style={{
-                      width: '10px',
-                      height: '10px',
-                      borderRadius: '50%',
-                      backgroundColor: 'green',
-                      display: 'inline-block',
-                      marginLeft: '5px',
-                    }}
-                    title="Open to Work"
-                  />
+                  <span className="userlist-open-to-work" title="Open to Work" />
                 )}
               </span>
             </Link>
-            <button
-              onClick={() => handleFollowUnfollow(user._id, user.isFollowing)}
-            >
-              {user.isFollowing ? 'Unfollow' : 'Follow'}
-            </button>
-            <Link to={`/chat/${user._id}`}>
-              <button>Chat</button>
-            </Link>
+            <div className="userlist-buttons">
+              <button
+                onClick={() => handleFollowUnfollow(user._id, user.isFollowing)}
+                className="userlist-follow-button"
+              >
+                {user.isFollowing ? 'Unfollow' : 'Follow'}
+              </button>
+              <Link to={`/chat/${user._id}`}>
+                <button className="userlist-chat-button">Chat</button>
+              </Link>
+            </div>
           </li>
         ))}
       </ul>

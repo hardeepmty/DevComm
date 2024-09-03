@@ -1,0 +1,61 @@
+/* General Container Styling */
+.job-listings-container {
+  background-color: #3e8685;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  font-family: "SUSE";
+}
+
+/* Page Title Styling */
+.page-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Job Card Styling */
+.job-card {
+  background: #a50e94;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.job-company {
+  font-size: 1.5rem;
+  color: #18b43a;
+  margin-bottom: 10px;
+}
+
+.job-role, .job-description {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 0;
+}
+
+.job-link {
+  font-size: 1rem;
+  color: #333;
+}
+
+.job-link-url {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.job-link-url:hover {
+  text-decoration: underline;
+}
+
+/* No Jobs Styling */
+.no-jobs {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}

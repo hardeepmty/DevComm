@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/PostJobPage.css'; // Import CSS file for styling
 
 const PostJobPage = () => {
   const [job, setJob] = useState({
@@ -19,21 +20,20 @@ const PostJobPage = () => {
 
     const token = localStorage.getItem('token');
 
-      if (!token) {
-        window.location.href = '/login';
-        return;
-      }
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/job/newJob', job,{
+      const response = await axios.post('http://localhost:5000/api/job/newJob', job, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       setMessage(response.data.message);
-      alert("Posted job successfully") ;
+      alert("Posted job successfully");
       window.location.href = '/getJobs';
       setJob({ company: '', role: '', description: '', link: '' });
-
     } catch (error) {
       setMessage('Failed to post job. Please try again.');
       console.error('Error posting job:', error);
@@ -41,49 +41,53 @@ const PostJobPage = () => {
   };
 
   return (
-    <div>
-      <h1>Post a New Job</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Company:</label>
+    <div className="post-job-container">
+      <h1 className="page-title">Post a New Job</h1>
+      <form onSubmit={handleSubmit} className="job-form">
+        <div className="form-group">
+          <label className="form-label">Company:</label>
           <input
             type="text"
             name="company"
             value={job.company}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        <div>
-          <label>Role:</label>
+        <div className="form-group">
+          <label className="form-label">Role:</label>
           <input
             type="text"
             name="role"
             value={job.role}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        <div>
-          <label>Description:</label>
+        <div className="form-group">
+          <label className="form-label">Description:</label>
           <textarea
             name="description"
             value={job.description}
             onChange={handleChange}
+            className="form-textarea"
           />
         </div>
-        <div>
-          <label>Link:</label>
+        <div className="form-group">
+          <label className="form-label">Link:</label>
           <input
             type="text"
             name="link"
             value={job.link}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        <button type="submit">Post Job</button>
-        {message && <p>{message}</p>}
+        <button type="submit" className="submit-button">Post Job</button>
+        {message && <p className="message">{message}</p>}
       </form>
     </div>
   );

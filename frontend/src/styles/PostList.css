@@ -9,6 +9,7 @@
   scrollbar-width: none; /* Hides scrollbar in Firefox */
   background-color: rgb(0, 0, 0);
   padding: 20px;
+  font-family: "SUSE";
 }
 
 .profile-posts-list::-webkit-scrollbar {

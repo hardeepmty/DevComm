@@ -17,6 +17,9 @@ import './App.css'
 import CodingAssistant from './pages/CodingAssistant';
 import CodeEditor from './pages/CodeEditor';
 import Compiler from './pages/Compiler';
+import Orion from './pages/Orion';
+import CombinedContent from './pages/CombinedContent';
+import Jobs from './pages/Jobs';
 
 function App() {
   return (
@@ -39,6 +42,9 @@ function App() {
           <Route path='/codeass' element={<CodingAssistant/>}/>
           <Route path='/codeeditor' element={<CodeEditor/>}/>
           <Route path='/compiler' element={<Compiler/>}/>
+          <Route path='/orion' element={<Orion/>}/>
+          <Route path='/comb' element={<CombinedContent/>}/>
+          <Route path='/jobs' element={<Jobs/>}/>
         </Routes>
       </div>
     </Router>

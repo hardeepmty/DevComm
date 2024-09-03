@@ -32,12 +32,13 @@ function Navbar() {
             style={{ minWidth: 'auto' }}
           />
           <Tab label="Profile" component={Link} to="/profile" value="/profile" />
-          <Tab label="Home" component={Link} to="/home" value="/home" />
-          <Tab label="Trending Repos" component={Link} to="/repos" value="/repos" />
-          <Tab label="Popular Articles" component={Link} to="/dev" value="/dev" />
-          <Tab label="Try" component={Link} to="/try" value="/try" />
-          <Tab label="Post Job" component={Link} to="/postJob" value="/postJob" />
-          <Tab label="Job Listings" component={Link} to="/getJobs" value="/getJobs" />
+          {/* <Tab label="Home" component={Link} to="/home" value="/home" /> */}
+          <Tab label="Trending" component={Link} to="/comb" value="/comb" />
+          {/* <Tab label="Popular Articles" component={Link} to="/dev" value="/dev" /> */}
+          <Tab label="Home" component={Link} to="/try" value="/try" />
+          {/* <Tab label="Post Job" component={Link} to="/postJob" value="/postJob" /> */}
+          <Tab label="Jobs" component={Link} to="/jobs" value="/jobs" />
+          <Tab label="Orion" component={Link} to="/orion" value="/orion"/>
             {/* community ,codeHelper, daily challenege */}
         </Tabs>
       </Box>

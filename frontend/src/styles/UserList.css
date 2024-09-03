@@ -1,0 +1,210 @@
+/* Container */
+.userlist-container {
+  margin-top: 20px;
+  padding: 20px;
+  font-family: "SUSE";
+  border-radius: 12px;
+}
+
+/* Title */
+.userlist-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Search Input */
+.userlist-search-input {
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* User List */
+.userlist {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* User Item */
+.userlist-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.userlist-item:hover {
+  background-color: #f9f9f9;
+}
+
+/* Profile Picture */
+.userlist-profile-picture {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+/* User Info */
+.userlist-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Ensures that elements wrap properly */
+}
+
+/* Username */
+.userlist-username {
+  font-size: medium;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
+/* Open to Work Indicator */
+.userlist-open-to-work {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* Buttons Container */
+.userlist-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  flex-wrap: wrap; /* Ensures buttons wrap if there's not enough space */
+}
+
+/* Follow Button */
+.userlist-follow-button,
+.userlist-chat-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-top: 5px; /* Adds space between wrapped buttons */
+  font-size: 0.875rem; /* Slightly reduces font size for better fit */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevents text from breaking into multiple lines */
+}
+
+.userlist-follow-button:hover,
+.userlist-chat-button:hover {
+  background-color: #0056b3;
+}
+
+/* No Users and Loading Messages */
+.userlist-no-users,
+.userlist-loading {
+  text-align: center;
+  color: #666;
+}
+
+/* Responsive Design */
+
+/* Medium-Sized Laptops */
+@media (max-width: 1024px) {
+  .userlist-container {
+    padding: 15px;
+    margin-right: 10px;
+  }
+
+  .userlist-title {
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+  }
+
+  .userlist-search-input {
+    padding: 8px;
+    max-width: 500px;
+  }
+
+  .userlist-item {
+    padding: 8px 12px;
+  }
+
+  .userlist-profile-picture {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+
+  .userlist-username {
+    font-size: medium;
+  }
+
+  .userlist-follow-button,
+  .userlist-chat-button {
+    padding: 6px 10px;
+    font-size: 0.875rem;
+    margin-left: 3px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .userlist-container {
+    padding: 10px;
+    margin-right: 0;
+  }
+
+  .userlist-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .userlist-search-input {
+    padding: 8px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .userlist-item {
+    padding: 6px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .userlist-profile-picture {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+  }
+
+  .userlist-username {
+    font-size: small;
+    margin-right: 0;
+  }
+
+  .userlist-buttons {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .userlist-follow-button,
+  .userlist-chat-button {
+    padding: 5px 8px;
+    font-size: small;
+    margin-left: 0;
+    margin-right: 10px;
+    width: 48%;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
