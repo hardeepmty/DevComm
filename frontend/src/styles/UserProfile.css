@@ -1,0 +1,101 @@
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.profile-left {
+  width: 25%;
+  background-color: #4caf50;
+  padding: 20px;
+  border-radius: 10px;
+  height: 100vh;
+}
+
+.profile-picture {
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.user-details {
+  margin-top: 20px;
+}
+
+.user-details p {
+  margin: 10px 0;
+}
+
+.user-details button {
+  margin-bottom: 10px;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-center {
+  width: 45%;
+  padding: 20px;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.post-user-profile {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.profile-right {
+  width: 25%;
+  background-color: #f8d7da;
+  padding: 20px;
+  border-radius: 10px;
+  height: 100vh;
+}
+
+.profile-follow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-follow button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.repositories-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.repositories-list li {
+  margin-bottom: 10px;
+}

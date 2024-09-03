@@ -16,6 +16,7 @@ import CodingChallenge from './pages/CodingChallenge'
 import './App.css'
 import CodingAssistant from './pages/CodingAssistant';
 import CodeEditor from './pages/CodeEditor';
+import Compiler from './pages/Compiler';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path='/code' element={<CodingChallenge/>}/>
           <Route path='/codeass' element={<CodingAssistant/>}/>
           <Route path='/codeeditor' element={<CodeEditor/>}/>
+          <Route path='/compiler' element={<Compiler/>}/>
         </Routes>
       </div>
     </Router>

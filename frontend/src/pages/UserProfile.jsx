@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/UserProfile.css'; 
 
 const UserProfile = () => {
   const { userId } = useParams();
@@ -20,13 +21,11 @@ const UserProfile = () => {
       }
 
       try {
-        // Fetch the specific user's details
         const userResponse = await axios.get(`http://localhost:5000/api/user/getUser/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
 
-        // Fetch all users for follow/unfollow functionality
         const usersResponse = await axios.get('http://localhost:5000/api/user/getUsers', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -35,7 +34,6 @@ const UserProfile = () => {
         if (userResponse.data.success && usersResponse.data.success) {
           setUser(userResponse.data.user);
 
-          // Add follow status to each user
           const usersWithFollowStatus = usersResponse.data.users.map((usr) => ({
             ...usr,
             isFollowing: usr.isFollowing !== undefined ? usr.isFollowing : false,
@@ -46,7 +44,6 @@ const UserProfile = () => {
           alert('Failed to fetch user or users');
         }
 
-        // Fetch posts of the specific user
         const postsResponse = await axios.get(`http://localhost:5000/api/post/user/${userId}/posts`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -130,87 +127,51 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
-      <h1>{user.username}'s Profile</h1>
-      {user.profilePicture && (
-        <img
-          src={user.profilePicture}
-          alt={`${user.username}'s profile`}
-          width="100"
-          height="100"
-        />
-      )}
-      <p>Email: {user.email}</p>
-      <p>Bio: {user.bio}</p>
-      <p>GitHub: {user.github}</p>
-
-      <h2>Followers ({user.followers.length})</h2>
-      <ul>
-        {user.followers.map((follower) => (
-          <li key={follower._id}>
-            <div onClick={() => handleUserClick(follower._id)} style={{ cursor: 'pointer' }}>
-              {follower.profilePicture && (
-                <img
-                  src={follower.profilePicture}
-                  alt={`${follower.username}'s profile`}
-                  width="50"
-                  height="50"
-                />
-              )}
-              <p>{follower.username}</p>
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleFollowUnfollow(follower._id, follower.isFollowing);
-              }}
-            >
-              {follower.isFollowing ? 'Unfollow' : 'Follow'}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <h2>Following ({user.following.length})</h2>
-      <ul>
-        {user.following.map((following) => (
-          <li key={following._id}>
-            <div onClick={() => handleUserClick(following._id)} style={{ cursor: 'pointer' }}>
-              {following.profilePicture && (
-                <img
-                  src={following.profilePicture}
-                  alt={`${following.username}'s profile`}
-                  width="50"
-                  height="50"
-                />
-              )}
-              <p>{following.username}</p>
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); 
-                handleFollowUnfollow(following._id, following.isFollowing);
-              }}
-            >
-              {following.isFollowing ? 'Unfollow' : 'Follow'}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <h2>Posts</h2>
-      {posts.length > 0 ? (
-        <div>
-          {posts.map((post) => (
-            <div key={post._id}>
-              {post.imageUrl && <img src={post.imageUrl} alt="Post image" width="100" />}
-              <p>{post.caption}</p>
-            </div>
-          ))}
+    <div className="profile-container">
+      <div className="profile-left">
+        {user.profilePicture && (
+          <img
+            src={user.profilePicture}
+            alt={`${user.username}'s profile`}
+            className="profile-picture"
+          />
+        )}
+        <div className="user-details">
+          <p><strong>Username:</strong> {user.username}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Bio:</strong> {user.bio}</p>
+          <p><strong>LinkedIn: {user.linkedin}</strong></p>
         </div>
-      ) : (
-        <p>No posts to display</p>
-      )}
+      </div>
+      <div className="profile-center">
+        {posts.length > 0 ? (
+          <div className="posts-container">
+            {posts.map((post) => (
+              <div key={post._id} className="post-user-profile">
+                {post.imageUrl && <img src={post.imageUrl} alt="Post image" className="post-image" />}
+                <p>{post.caption}</p>
+                <p>Likes: {post.likes.length}</p>
+                <p>Comments: {post.comments.length}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No posts to display</p>
+        )}
+      </div>
+      <div className="profile-right">
+        <div className="profile-follow">
+          <button>Followers {user.followers.length}</button>
+          <button>Following {user.following.length}</button>
+        </div>
+        <p>Coins: {user.coins}</p>
+        <h2>Repositories</h2>
+        <ul className="repositories-list">
+          {user.repositories.map((repo, index) => (
+            <li key={index}>{repo}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

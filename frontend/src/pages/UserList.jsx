@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import fallbackImage from '../images/user.png'; 
+import '../styles/UserList.css'
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -106,21 +108,19 @@ const UserList = () => {
         placeholder="Search users..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ marginBottom: '20px', padding: '8px', width: '50%' }}
+        style={{ marginBottom: '20px', padding: '8px', width: '80%' }}
       />
       <ul>
         {filteredUsers.map(user => (
           <li key={user._id} style={{ marginBottom: '20px' }}>
             <Link to={`/profile/${user._id}`}>
-              {user.profilePicture && (
-                <img
-                  src={user.profilePicture}
-                  alt={`${user.username}'s profile`}
-                  width="50"
-                  height="50"
-                  style={{ borderRadius: '50%', marginRight: '10px' }}
-                />
-              )}
+              <img
+                src={user.profilePicture || fallbackImage} // Use fallback image if profilePicture is not available
+                alt={`${user.username}'s profile`}
+                width="50"
+                height="50"
+                style={{ borderRadius: '50%', marginRight: '10px' }}
+              />
               <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                 {user.username}
                 {user.openToWork && (
@@ -138,9 +138,6 @@ const UserList = () => {
                 )}
               </span>
             </Link>
-            <p>Email: {user.email}</p>
-            <p>Bio: {user.bio}</p>
-            <p>GitHub: {user.github}</p>
             <button
               onClick={() => handleFollowUnfollow(user._id, user.isFollowing)}
             >

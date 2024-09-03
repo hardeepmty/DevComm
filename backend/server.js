@@ -11,9 +11,17 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const initSocket = require('./socket/socket');
 
+
+const bodyParser = require('body-parser');
+const { exec } = require('child_process');
+
+
 dotenv.config();
 
 const app = express();
+
+app.use(bodyParser.json());
+
 const server = http.createServer(app);
 const io = initSocket(server);
 
@@ -35,6 +43,34 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/job",jobRoutes) ;
+
+
+
+app.post('/execute', (req, res) => {
+  const { language, code } = req.body;
+  let command;
+
+  if (language === 'javascript') {
+    command = `node -e "${code.replace(/"/g, '\\"')}"`;
+  } else if (language === 'python') {
+    command = `python -c "${code.replace(/"/g, '\\"')}"`;
+  } else if (language === 'c_cpp') {
+    const fs = require('fs');
+    const path = './temp.cpp';
+    fs.writeFileSync(path, code);
+    command = `g++ ${path} -o temp && ./temp`;
+  }
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      res.json({ output: stderr || error.message });
+      return;
+    }
+    res.json({ output: stdout });
+  });
+});
+
+
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

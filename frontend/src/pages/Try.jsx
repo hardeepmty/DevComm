@@ -7,14 +7,13 @@ const Try = () => {
   return (
     <div style={{ display: 'flex', width: '100%', height: '100vh' }}>
       <div style={{ flex: 1, minWidth: '200px' }}>
-        <UserList />
+      <JobListingsPage />
       </div>
       <div style={{ flex: 2, minWidth: '300px' }}>
         <PostList />
       </div>
       <div style={{ flex: 1, minWidth: '200px',flexDirection:"column" }}>
         <UserList />
-        <JobListingsPage />
       </div>
     </div>
   );
