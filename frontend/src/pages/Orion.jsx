@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Orion.css'; // Ensure you import the CSS file
+import '../styles/Orion.css'; 
 
 const Orion = () => {
   return (

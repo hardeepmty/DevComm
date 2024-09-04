@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
+import '../styles/Chat.css'; // Import a CSS file for styles
 
 const Chat = () => {
   const { userId } = useParams();
@@ -28,9 +29,6 @@ const Chat = () => {
     if (socket) {
       const token = localStorage.getItem('token');
       const loggedInUserId = localStorage.getItem('userId');
-
-      console.log(loggedInUserId)
-      console.log(userId)
 
       const fetchChat = async () => {
         try {
@@ -107,24 +105,31 @@ const Chat = () => {
   }
 
   return (
-    <div>
-      {/* <h1>Chat with {chat.targetUser.username}</h1> */}
-      <h1>Chat with {chat.participants[1].username}</h1>
-      <div>
+    <div className="chat-container">
+      <div className="chat-header">
+        <h1>{chat.participants[1].username}</h1>
+      </div>
+      <div className="chat-messages">
         {chat.messages.map((msg, index) => (
-          <div key={index}>
-            <p>{msg.sender.username}: {msg.text}</p>
+          <div
+            key={index}
+            className={`chat-message ${
+              msg.sender._id === localStorage.getItem('userId') ? 'sent' : 'received'
+            }`}
+          >
+            <p>{msg.text}</p>
           </div>
         ))}
       </div>
-      <form onSubmit={sendMessage}>
+      <form className="chat-input-container" onSubmit={sendMessage}>
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="Type a message..."
+          className="chat-input"
         />
-        <button type="submit">Send</button>
+        <button type="submit" className="send-button">Send</button>
       </form>
     </div>
   );

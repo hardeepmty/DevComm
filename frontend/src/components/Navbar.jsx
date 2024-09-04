@@ -25,21 +25,78 @@ function Navbar() {
         borderColor: 'yellow',
         borderWidth: '3px',
       }}>
-        <Tabs value={currentPath}>
+        <Tabs 
+          value={currentPath}
+          textColor="inherit"
+          TabIndicatorProps={{
+            style: { backgroundColor: 'blue' } // Change the indicator color to green
+          }}
+        >
           <Tab
-            label={<h2 style={{ fontFamily: 'SUSE', margin: 0, color: "black" }}>DevComm</h2>}
+            label={<h2 style={{ fontFamily: 'SUSE', margin: 0, color: "white" }}>DevComm</h2>}
             disabled
             style={{ minWidth: 'auto' }}
           />
-          <Tab label="Profile" component={Link} to="/profile" value="/profile" />
-          {/* <Tab label="Home" component={Link} to="/home" value="/home" /> */}
-          <Tab label="Trending" component={Link} to="/comb" value="/comb" />
-          {/* <Tab label="Popular Articles" component={Link} to="/dev" value="/dev" /> */}
-          <Tab label="Home" component={Link} to="/try" value="/try" />
-          {/* <Tab label="Post Job" component={Link} to="/postJob" value="/postJob" /> */}
-          <Tab label="Jobs" component={Link} to="/jobs" value="/jobs" />
-          <Tab label="Orion" component={Link} to="/orion" value="/orion"/>
-            {/* community ,codeHelper, daily challenege */}
+          <Tab 
+            label="Profile" 
+            component={Link} 
+            to="/profile" 
+            value="/profile"
+            sx={{ 
+              color: 'black', // Default color
+              '&.Mui-selected': { 
+                color: 'orange', // Color when selected
+              } 
+            }}
+          />
+          <Tab 
+            label="Trending" 
+            component={Link} 
+            to="/comb" 
+            value="/comb" 
+            sx={{ 
+              color: 'black',
+              '&.Mui-selected': { 
+                color: 'green',
+              } 
+            }}
+          />
+          <Tab 
+            label="Home" 
+            component={Link} 
+            to="/try" 
+            value="/try" 
+            sx={{ 
+              color: 'black',
+              '&.Mui-selected': { 
+                color: 'green',
+              } 
+            }}
+          />
+          <Tab 
+            label="Jobs" 
+            component={Link} 
+            to="/jobs" 
+            value="/jobs" 
+            sx={{ 
+              color: 'black',
+              '&.Mui-selected': { 
+                color: 'green',
+              } 
+            }}
+          />
+          <Tab 
+            label="Orion" 
+            component={Link} 
+            to="/orion" 
+            value="/orion"
+            sx={{ 
+              color: 'black',
+              '&.Mui-selected': { 
+                color: 'green',
+              } 
+            }}
+          />
         </Tabs>
       </Box>
 
@@ -61,7 +118,11 @@ function Navbar() {
           component={Link}
           to="/home"
           value="/home"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/home' ? 'green' : 'inherit', // Change color when selected
+          }} 
         />
         <BottomNavigationAction
           label="Profile"
@@ -69,7 +130,11 @@ function Navbar() {
           component={Link}
           to="/profile"
           value="/profile"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/profile' ? 'green' : 'inherit',
+          }}
         />
         <BottomNavigationAction
           label="Repos"
@@ -77,7 +142,11 @@ function Navbar() {
           component={Link}
           to="/repos"
           value="/repos"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/repos' ? 'green' : 'inherit',
+          }}
         />
         <BottomNavigationAction
           label="Articles"
@@ -85,7 +154,11 @@ function Navbar() {
           component={Link}
           to="/dev"
           value="/dev"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/dev' ? 'green' : 'inherit',
+          }}
         />
         <BottomNavigationAction
           label="Jobs"
@@ -93,7 +166,11 @@ function Navbar() {
           component={Link}
           to="/getJobs"
           value="/getJobs"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/getJobs' ? 'green' : 'inherit',
+          }}
         />
         <BottomNavigationAction
           label="Explore"
@@ -101,7 +178,11 @@ function Navbar() {
           component={Link}
           to="/try"
           value="/try"
-          sx={{ minWidth: 0, maxWidth: '100%' }} // Adjust button width
+          sx={{ 
+            minWidth: 0, 
+            maxWidth: '100%', 
+            color: currentPath === '/try' ? 'green' : 'inherit',
+          }}
         />
       </BottomNavigation>
     </div>
