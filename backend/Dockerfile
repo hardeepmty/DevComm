@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y \
 # Copy the rest of your application code
 COPY . .
 
+# Copy the .env file
+COPY .env .env
+
 # Expose the port your application runs on
 EXPOSE 5000
 
