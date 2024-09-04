@@ -1,0 +1,83 @@
+/* body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e;
+  color: #fff;
+} */
+
+.custom-compiler-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #fff;
+  font-family: "SUSE";
+}
+
+.custom-editor-pane {
+  background-color: #252526;
+  padding: 20px;
+  border-radius: 8px;
+  width: 70%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.custom-language-select {
+  display: flex;
+  align-items: center;
+}
+
+.custom-language-select label {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.custom-language-select select {
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 4px;
+}
+
+.custom-ace-editor {
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.custom-run-button {
+  margin-top: 20px;
+  padding: 5px 10px;
+  background-color: #0e639c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+}
+
+.custom-run-button:hover {
+  background-color: #1177bb;
+}
+
+.custom-output-pane {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 15px;
+  margin-top: 20px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}

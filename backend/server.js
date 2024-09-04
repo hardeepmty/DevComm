@@ -14,6 +14,9 @@ const initSocket = require('./socket/socket');
 
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
+const fs = require('fs');
+const os = require('os');
+const path = require('path')
 
 
 dotenv.config();
@@ -47,7 +50,7 @@ app.use("/api/job",jobRoutes) ;
 
 
 app.post('/execute', (req, res) => {
-  const { language, code } = req.body;
+  const { language, code } = req.body;  
   let command;
 
   if (language === 'javascript') {
@@ -55,22 +58,27 @@ app.post('/execute', (req, res) => {
   } else if (language === 'python') {
     command = `python -c "${code.replace(/"/g, '\\"')}"`;
   } else if (language === 'c_cpp') {
-    const fs = require('fs');
-    const path = './temp.cpp';
-    fs.writeFileSync(path, code);
-    command = `g++ ${path} -o temp && ./temp`;
+    const tempFilePath = path.join(__dirname, 'temp.cpp');  
+    fs.writeFileSync(tempFilePath, code);  
+
+    if (os.platform() === 'win32') {
+      command = `g++ ${tempFilePath} -o temp && temp.exe`;
+    } else {
+      command = `g++ ${tempFilePath} -o temp && ./temp`;
+    }
   }
 
+  // Execute the command
   exec(command, (error, stdout, stderr) => {
     if (error) {
+      // If there is an error during execution, send the error message
       res.json({ output: stderr || error.message });
       return;
     }
+    // Send the standard output of the executed code
     res.json({ output: stdout });
   });
 });
-
-
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

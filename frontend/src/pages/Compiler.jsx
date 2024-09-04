@@ -2,22 +2,20 @@ import React, { useState } from 'react';
 import AceEditor from 'react-ace';
 import axios from 'axios';
 
-// Import Ace modes for each language
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-javascript';
-// Import Ace theme
-import 'ace-builds/src-noconflict/theme-github';
-import '../styles/Compiler.css'; 
+import 'ace-builds/src-noconflict/theme-monokai';
+import '../styles/Compiler.css';  
 
-function Compiler() {
+function Compiler() { 
   const [language, setLanguage] = useState('javascript');
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
-    setCode('');  // Clear the code when language changes
+    setCode('');  
   };
 
   const executeCode = async () => {
@@ -34,36 +32,40 @@ function Compiler() {
   };
 
   return (
-    <div className="code-editor-container">
-      <div className="editor-pane">
-        <h2>Code Editor</h2>
-        <label htmlFor="language-select">Choose Language:</label>
-        <select
-          id="language-select"
-          value={language}
-          onChange={handleLanguageChange}
-        >
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="c_cpp">C++</option>
-        </select>
-        
+    <div className="custom-compiler-container">
+      <div className="custom-editor-pane">
+        <div className="custom-header">
+          <h2>Code Editor</h2>
+          <div className="custom-language-select">
+            <label htmlFor="language-select">Language:</label>
+            <select
+              id="language-select"
+              value={language}
+              onChange={handleLanguageChange}
+            >
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="c_cpp">C++</option>
+            </select>
+          </div>
+        </div>
+
         <AceEditor
           mode={language}
-          theme="github"
-          name="code-editor"
+          theme="monokai"
+          name="custom-code-editor"
           value={code}
           onChange={setCode}
           editorProps={{ $blockScrolling: true }}
-          height="300px"
+          height="400px"
           width="100%"
-          className="ace_editor"
+          className="custom-ace-editor"
         />
 
-        <button onClick={executeCode}>Run Code</button>
+        <button className="custom-run-button" onClick={executeCode}>Run Code</button>
         
         <h2>Output</h2>
-        <pre className="output-pane">{output}</pre>
+        <pre className="custom-output-pane">{output}</pre>
       </div>
     </div>
   );

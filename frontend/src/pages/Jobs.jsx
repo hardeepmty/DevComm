@@ -4,7 +4,7 @@ import JobListingsPage from './JobListingsPage'
 
 const Jobs = () => {
   return (
-    <div>
+    <div style={{display:"flex"}}>
       <PostJobPage/>
       <JobListingsPage/>
     </div>
