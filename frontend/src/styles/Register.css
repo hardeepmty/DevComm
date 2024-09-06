@@ -1,0 +1,125 @@
+/* Overall page layout */
+.register-page {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Left section (image + text) */
+.register-left {
+  flex: 1;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.register-image {
+  max-width: 80%;
+  margin-bottom: 20px;
+}
+
+.register-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.register-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.register-text li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.register-text li::before {
+  content: '✔';
+  margin-right: 10px;
+  color: #00bcd4;
+}
+
+/* Right section (form) */
+.register-right {
+  flex: 1;
+  background-color: #050811;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(204, 198, 198);
+  font-family: "SUSE";
+}
+
+.register-right h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.register-right form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-right label {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.register-right input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.register-button {
+  background-color: #ff914d;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.register-button:hover {
+  background-color: #e6783a;
+}
+
+.register-error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.register-login {
+  margin-top: 20px;
+}
+
+.register-login button {
+  background: none;
+  border: none;
+  color: #ff914d;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.register-login button:hover {
+  color: #e6783a;
+}

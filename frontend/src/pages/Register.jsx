@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/Register.css'; // Import the new CSS file
+import logo from '../images/DCLogo.jpg'; // Replace with actual logo image path
 
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [github, setGithub] = useState(''); // Added state for GitHub
+  const [github, setGithub] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ function Register() {
         username,
         email,
         password,
-        github, 
+        github,
       });
 
       if (response.data.success) {
@@ -32,11 +34,24 @@ function Register() {
   };
 
   return (
-    <div className="container">
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="register-page">
+      <div className="register-left">
+        <img src={logo} alt="Register Logo" className="register-image" />
+        <div className="register-text">
+          <h1>Join Us Today</h1>
+          <ul>
+            <li>Access the best developer tools</li>
+            <li>Collaborate with a thriving community</li>
+            <li>Enhance your skills with real projects</li>
+            <li>Get connected with GitHub and more</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="register-right">
+        <h2>Register</h2>
+        {error && <p className="register-error">{error}</p>}
+        <form onSubmit={handleSubmit}>
           <label>Username:</label>
           <input
             type="text"
@@ -44,8 +59,6 @@ function Register() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </div>
-        <div>
           <label>Email:</label>
           <input
             type="email"
@@ -53,8 +66,6 @@ function Register() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
           <label>Password:</label>
           <input
             type="password"
@@ -62,20 +73,18 @@ function Register() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <div>
           <label>GitHub Username:</label>
           <input
             type="text"
             value={github}
             onChange={(e) => setGithub(e.target.value)}
           />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p>
-        Already a user? <button onClick={() => navigate('/login')}>Login</button>
-      </p>
+          <button type="submit" className="register-button">Register</button>
+        </form>
+        <p className="register-login">
+          Already a user? <button onClick={() => navigate('/login')}>Login</button>
+        </p>
+      </div>
     </div>
   );
 }
