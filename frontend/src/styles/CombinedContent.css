@@ -8,6 +8,10 @@
   color: #e0e0e0; /* Light text for better contrast */
 }
 
+body{
+  background-color: black;
+}
+
 /* Title Styling */
 .title {
   font-size: 2.5rem;

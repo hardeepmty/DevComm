@@ -213,9 +213,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
+    <div className="profile-container" style={{backgroundColor:"black"}}>
       {/* Left Section: Profile Info */}
-      <div className="profile-info" style={{backgroundColor:"green"}}>
+      <div className="profile-info" >
         {/* Profile Picture */}
         {user.profilePicture && (
           <div className="profile-picture">
@@ -319,8 +319,10 @@ const Profile = () => {
             {openToWork ? 'Remove Open to Work' : 'Add Open to Work'}
           </button>
         </div>
-        <button onClick={() => setShowNewPostPopup(true)}>New Post</button>
-        <button onClick={handleLogout}>Logout</button>
+        <div style={{display:"flex",gap:"20px"}}>
+        <button onClick={() => setShowNewPostPopup(true)} className='btn'>New Post</button>
+        <button onClick={handleLogout} className='btn'>Logout</button>
+        </div>
       </div>
 
       {/* Center Section: User Posts */}
@@ -359,7 +361,7 @@ const Profile = () => {
 
 
       {/* Right Section: Buttons and Popup */}
-      <div className="profile-buttons" style={{backgroundColor:"pink"}}>
+      <div className="profile-buttons" >
         <button onClick={handleShowFollowers}>Followers {user.followers.length}</button>
         <button onClick={handleShowFollowing}>Following {user.following.length}</button>
         <p>Coins:{user.coins}</p>
@@ -370,12 +372,7 @@ const Profile = () => {
     {user.repositories.slice(0, 5).map((repository) => (
       <li key={repository._id} style={{ marginBottom: '10px' }}>
         <div className='repo-box'
-          style={{
-            backgroundColor: 'red',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '5px',
-          }}
+         
         >
           {repository.name}
         </div>

@@ -1,17 +1,20 @@
+/* Profile Container */
 .profile-container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #1f1f1f;
-  color: white;
+  background-color: #1f1f1f; /* Dark background */
+  color: #e0e0e0; /* Light text color */
 }
 
+/* Left Side Profile */
 .profile-left {
   width: 25%;
-  background-color: #4caf50;
+  background-color: #333; /* Darker background for left section */
   padding: 20px;
   border-radius: 10px;
   height: 100vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
 }
 
 .profile-picture {
@@ -29,18 +32,24 @@
 
 .user-details p {
   margin: 10px 0;
+  color: #e0e0e0; /* Light text color for readability */
 }
 
 .user-details button {
   margin-bottom: 10px;
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: #4c9aff; /* Replit accent blue */
+  color: #ffffff;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 
+.user-details button:hover {
+  background-color: #357ae8; /* Slightly darker blue on hover */
+}
+
+/* Center Section for Posts */
 .profile-center {
   width: 45%;
   padding: 20px;
@@ -52,14 +61,32 @@
   gap: 20px;
   height: 100vh;
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #4c9aff #1f1f1f; /* Blue scrollbar with dark track */
+}
+
+.posts-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.posts-container::-webkit-scrollbar-track {
+  background: #1f1f1f;
+}
+
+.posts-container::-webkit-scrollbar-thumb {
+  background: #4c9aff;
+  border-radius: 10px;
+}
+
+.posts-container::-webkit-scrollbar-thumb:hover {
+  background: #357ae8;
 }
 
 .post-user-profile {
-  background-color: #ffffff;
+  background-color: #2b2b2b; /* Slightly lighter than the container */
   padding: 15px;
   border-radius: 10px;
-  color: black;
+  color: #e0e0e0; /* Light text color */
 }
 
 .post-image {
@@ -67,12 +94,14 @@
   border-radius: 10px;
 }
 
+/* Right Side Profile */
 .profile-right {
   width: 25%;
-  background-color: #f8d7da;
+  background-color: #333; /* Darker background for right section */
   padding: 20px;
   border-radius: 10px;
   height: 100vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
 }
 
 .profile-follow {
@@ -82,14 +111,19 @@
 }
 
 .profile-follow button {
-  background-color: #007bff;
-  color: white;
+  background-color: #4c9aff; /* Replit accent blue */
+  color: #ffffff;
   border: none;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 
+.profile-follow button:hover {
+  background-color: #357ae8; /* Slightly darker blue on hover */
+}
+
+/* Repositories List */
 .repositories-list {
   list-style: none;
   padding: 0;
@@ -98,4 +132,8 @@
 
 .repositories-list li {
   margin-bottom: 10px;
+  background-color: #2b2b2b; /* Consistent dark theme */
+  padding: 10px;
+  border-radius: 5px;
+  color: #e0e0e0; /* Light text color */
 }

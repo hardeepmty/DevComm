@@ -80,13 +80,14 @@ function Navbar() {
             }}
           />
           <Tab 
-            label="Orion"
+            label={<span className="glitch">Orion</span>} // Apply the glow class
             component={Link}
             to="/orion"
             value="/orion"
             sx={{ 
               color: currentPath === '/orion' ? '#00E676' : 'white',
               fontSize: '14px',
+              fontFamily: 'SUSE', // Ensure consistent font styling
             }}
           />
         </Tabs>

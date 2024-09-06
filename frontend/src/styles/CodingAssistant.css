@@ -1,18 +1,21 @@
+/* Main Container */
 .CodingAssistant {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Courier New', Courier, monospace;
-  background-color: #282c34;
-  color: #ffffff;
+  background-color: #000000; /* Dark background */
+  color: #ffffff; /* Light text color */
   padding: 20px;
   min-height: 100vh;
 }
 
+/* Heading */
 .CodingAssistant h1 {
-  color: #61dafb;
+  color: #4c9aff; /* Replit blue */
 }
 
+/* Query Form */
 .query-form {
   display: flex;
   flex-direction: column;
@@ -21,49 +24,51 @@
   max-width: 800px;
 }
 
+/* Query Input */
 .query-input {
   width: 100%;
   max-width: 600px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #333; /* Darker border */
   border-radius: 4px;
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: #2e2e2e; /* Darker background for input */
+  color: #ffffff; /* Light text color */
 }
 
+/* Submit Button */
 .submit-button {
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: #61dafb;
-  color: #000000;
+  background-color: #4c9aff; /* Replit blue */
+  color: #000000; /* Dark text color for contrast */
   cursor: pointer;
 }
 
 .submit-button:disabled {
-  background-color: #cccccc;
+  background-color: #666666; /* Disabled state */
   cursor: not-allowed;
 }
 
+/* Response Container */
 .response-container {
   margin-top: 20px;
   width: 100%;
   max-width: 800px;
 }
 
+/* Response */
 .response {
   padding: 20px;
-  background-color: #1e1e1e;
+  background-color: #2e2e2e; /* Darker background for responses */
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Slightly more pronounced shadow */
 }
 
+/* Error Messages */
 .error {
-  color: #ff6f61;
+  color: #ff6f61; /* Error color */
 }
-
-
-

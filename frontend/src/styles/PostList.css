@@ -1,3 +1,4 @@
+/* Profile Posts List */
 .profile-posts-list {
   flex: 1;
   margin: 0 20px;
@@ -7,26 +8,31 @@
   height: 100vh;
   overflow-y: auto;
   scrollbar-width: none; /* Hides scrollbar in Firefox */
-  background-color: rgb(0, 0, 0);
+  background-color: #000000; /* Replit-like dark background */
   padding: 20px;
-  font-family: "SUSE";
+  font-family: "SUSE", sans-serif;
+  color: #c9d1d9; /* Light text */
 }
 
 .profile-posts-list::-webkit-scrollbar {
   display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
 }
 
-
-
-
+/* Post Styling */
 .post {
-  border: 1px solid #ddd;
+  border: 1px solid #21262d; /* Soft border matching Replit style */
   border-radius: 8px;
   margin-bottom: 20px;
-  padding: 10px;
-  background-color: #fff;
+  padding: 15px;
+  background-color: #161b22; /* Darker background for posts */
+  transition: box-shadow 0.2s ease;
 }
 
+.post:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+/* Post Header */
 .post-header {
   display: flex;
   align-items: center;
@@ -34,18 +40,21 @@
 }
 
 .profile-picture-list {
-  width: 40px; /* Adjust size as needed */
+  width: 40px;
   height: 40px;
-  border-radius: 50%; /* Makes the image circular */
+  border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px; /* Space between picture and username */
+  margin-right: 10px;
 }
+
 
 .caption {
   font-weight: bold;
   margin: 0;
+  color: #c9d1d9; /* Keep light text for captions */
 }
 
+/* Post Image */
 .post-image {
   width: 100%;
   height: auto;
@@ -53,6 +62,7 @@
   margin-bottom: 10px;
 }
 
+/* Post Actions */
 .post-actions {
   display: flex;
   align-items: center;
@@ -61,12 +71,21 @@
 
 .like-button {
   margin-right: 10px;
+  color: #58a6ff; /* Replit's blue */
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.like-button:hover {
+  color: #1f6feb; /* Slightly brighter blue on hover */
 }
 
 .likes-count {
   font-weight: bold;
+  color: #c9d1d9;
 }
 
+/* Comments Section */
 .comments-section {
   margin-top: 10px;
 }
@@ -78,37 +97,14 @@
 }
 
 .comment-profile-picture {
-  width: 30px; /* Adjust size as needed */
+  width: 30px;
   height: 30px;
-  border-radius: 50%; /* Makes the image circular */
+  border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px; /* Space between picture and comment text */
+  margin-right: 10px;
 }
 
-.add-comment-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.post-comment-button {
-  padding: 8px;
-  border: none;
-  background-color: #0095f6;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.post-comment-button:hover {
-  background-color: #007bb5;
-}
-
-
-
-/* PostList.css */
-
+/* Comment Form */
 .comment-form {
   display: flex;
   align-items: center;
@@ -118,24 +114,38 @@
 
 .add-comment-input {
   flex: 1;
-  padding: 8px 40px 8px 12px; /* Add extra padding on the right for the button */
-  border: 1px solid #ddd;
-  border-radius: 20px; /* Adjust for rounded corners */
+  padding: 8px 40px 8px 12px;
+  border: 1px solid #21262d;
+  border-radius: 20px;
+  background-color: #0d1117; /* Dark input field */
+  color: #c9d1d9;
   outline: none;
+}
+
+.add-comment-input:focus {
+  border-color: #58a6ff; /* Blue focus outline */
 }
 
 .post-comment-button {
   position: absolute;
-  right: 10px; 
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   border: none;
   cursor: pointer;
-  color: #0095f6;
-  background: transparent !important;
+  color: #58a6ff;
+  background: transparent;
+  transition: color 0.2s ease;
 }
 
-.post-comment-butto{
-  background-color: transparent;
+.post-comment-button:hover {
+  color: #1f6feb;
 }
+
+/* For posts and comments */
+.post {
+  background-color: #161b22; /* Darker container for content */
+  border: 1px solid #21262d; /* Subtle border */
+}
+
 

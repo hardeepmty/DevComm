@@ -156,78 +156,97 @@ const PostList = () => {
     return <div>No posts found</div>;
   }
 
-  return (
-    <div className="profile-posts-list">
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {posts.map((post) => (
-          <li key={post._id} className="post">
-            <div className="post-header">
-              {post.author.profilePicture && (
-                <img
-                  src={post.author.profilePicture}
-                  alt="Profile"
-                  className="profile-picture-list"
-                />
-              )}
-              <p className="caption">{post.author.username}</p>
-            </div>
-            {post.imageUrl && (
+return (
+  <div className="profile-posts-list">
+    <ul style={{ listStyleType: 'none', padding: 0 }}>
+      {posts.map((post) => (
+        <li key={post._id} className="post">
+          <div className="post-header">
+            {post.author.profilePicture && (
               <img
-                src={post.imageUrl}
-                alt="Post"
-                className="post-image"
+                src={post.author.profilePicture}
+                alt="Profile"
+                className="profile-picture-list"
               />
             )}
-            <p>{post.caption}</p>
-            <div className="post-actions">
-              <IconButton onClick={() => handleLike(post._id)} color="default" className="like-button">
-                {post.likes.includes(localStorage.getItem('userId')) ? (
-                  <Favorite style={{ color: 'red' }} />
-                ) : (
-                  <FavoriteBorder style={{ color: 'black' }} />
-                )}
-              </IconButton>
-              <span className="likes-count">{post.likes.length}</span>
-            </div>
-            <div className="comments-section">
-              <div onClick={() => toggleComments(post._id)}>
-                {commentsVisible[post._id] ? <>Hide</> : <MapsUgcOutlinedIcon/>}
-              </div>
-              {commentsVisible[post._id] && (
-                <div>
-                  <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {post.comments.map((comment) => (
-                      <li key={comment._id} className="comment">
-                        {comment.author.profilePicture && (
-                          <img
-                            src={comment.author.profilePicture}
-                            alt="Profile"
-                            className="comment-profile-picture"
-                          />
-                        )}
-                        <p>{comment.author.username}: {comment.text}</p>
-                      </li>
-                    ))}
-                  </ul>
-                  <form onSubmit={(e) => handleCommentSubmit(post._id, e)} className="comment-form">
-                      <input
-                        type="text"
-                        value={newComment[post._id] || ''}
-                        onChange={(e) => handleCommentChange(post._id, e)}
-                        placeholder="Add a comment"
-                        className="add-comment-input"
-                      />
-                      <button type="submit" className="post-comment-button">
-                        <SendRoundedIcon />
-                      </button>
-                  </form>
-                </div>
+            <p className="caption">{post.author.username}</p>
+          </div>
+          {post.imageUrl && (
+            <img
+              src={post.imageUrl}
+              alt="Post"
+              className="post-image"
+            />
+          )}
+          <p>{post.caption}</p>
+          
+          {/* Likes Section */}
+          <div className="post-actions">
+            <IconButton onClick={() => handleLike(post._id)} color="default" className="like-button">
+              {post.likes.includes(localStorage.getItem('userId')) ? (
+                <Favorite style={{ color: 'red' }} />
+              ) : (
+                <FavoriteBorder style={{ color: 'black' }} />
               )}
+            </IconButton>
+            <span className="likes-count">{post.likes.length} likes</span>
+          </div>
+          
+          {/* Comments Preview */}
+          <div className="comments-preview">
+            {post.comments.length > 0 && (
+              <div
+                onClick={() => toggleComments(post._id)}
+                style={{ cursor: 'pointer', color: '#8e8e8e' }}
+              >
+                View all {post.comments.length} comments
+              </div>
+            )}
+          </div>
+
+          {/* Full Comments Section (toggled) */}
+          {commentsVisible[post._id] && (
+            <div className="comments-section">
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                {post.comments.map((comment) => (
+                  <li key={comment._id} className="comment">
+                    {comment.author.profilePicture && (
+                      <img
+                        src={comment.author.profilePicture}
+                        alt="Profile"
+                        className="comment-profile-picture"
+                      />
+                    )}
+                    <p>
+                      <strong>{comment.author.username}:</strong> {comment.text}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Add Comment Input */}
+              <form
+                onSubmit={(e) => handleCommentSubmit(post._id, e)}
+                className="comment-form"
+              >
+                <input
+                  type="text"
+                  value={newComment[post._id] || ''}
+                  onChange={(e) => handleCommentChange(post._id, e)}
+                  placeholder="Add a comment"
+                  className="add-comment-input"
+                />
+                <button type="submit" className="post-comment-button">
+                  <SendRoundedIcon />
+                </button>
+              </form>
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+
   );
 };
 

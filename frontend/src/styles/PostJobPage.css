@@ -1,18 +1,18 @@
 /* General Container Styling */
 .post-job-container {
-  background-color: #f8f9fa;
+  background-color: #1E1E1E; /* Replit dark theme background */
   padding: 30px;
   max-width: 600px;
   margin: 0 auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow for depth */
   font-family: "SUSE";
 }
 
 /* Page Title Styling */
 .page-title {
   font-size: 2rem;
-  color: #343a40;
+  color: #00E676; /* Replit green for titles */
   margin-bottom: 20px;
   text-align: center;
 }
@@ -30,7 +30,7 @@
 .form-label {
   display: block;
   font-size: 1rem;
-  color: #495057;
+  color: #CCCCCC; /* Lighter gray for labels */
   margin-bottom: 5px;
 }
 
@@ -38,7 +38,9 @@
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ced4da;
+  border: 1px solid #43495b; /* Green border to align with Replit */
+  background-color: #2E2E2E; /* Dark background for inputs */
+  color: #FFFFFF; /* White text inside inputs */
   box-sizing: border-box;
 }
 
@@ -47,9 +49,16 @@
   resize: vertical;
 }
 
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #007bff; /* Blue highlight on focus */
+  background-color: #333333; /* Slightly lighter background on focus */
+}
+
+/* Submit Button Styling */
 .submit-button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #00E676; /* Replit green for button */
+  color: #1E1E1E; /* Dark text inside button */
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -59,12 +68,13 @@
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #0053c8; /* Darker green on hover */
 }
 
+/* Error Message Styling */
 .message {
   margin-top: 20px;
   font-size: 1rem;
-  color: #dc3545;
+  color: #FF4136; /* Bright red for error messages */
   text-align: center;
 }

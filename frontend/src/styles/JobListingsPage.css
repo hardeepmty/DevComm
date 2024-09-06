@@ -9,6 +9,27 @@
   margin-top: 20px;
   font-family: "SUSE", sans-serif;
   color: #e0e0e0; /* Light text for better contrast */
+  height: 80vh;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar Styling */
+.job-listings-container::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.job-listings-container::-webkit-scrollbar-track {
+  background: #000000; /* Dark background for the track */
+  border-radius: 8px; /* Rounded corners for the track */
+}
+
+.job-listings-container::-webkit-scrollbar-thumb {
+  background: #11111f; /* Bright green for the thumb */
+  border-radius: 8px; /* Rounded corners for the thumb */
+}
+
+.job-listings-container::-webkit-scrollbar-thumb:hover {
+  background: #ff79c6; /* Neon pink when hovering */
 }
 
 /* Page Title Styling */

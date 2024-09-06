@@ -42,7 +42,7 @@ const PostJobPage = () => {
 
   return (
     <div className="post-job-container">
-      <h1 className="page-title">Post a New Job</h1>
+      {/* <h1 className="page-title">Post a New Job</h1> */}
       <form onSubmit={handleSubmit} className="job-form">
         <div className="form-group">
           <label className="form-label">Company:</label>

@@ -4,6 +4,7 @@ import '../styles/JobListingsPage.css'; // Import CSS file for styling
 
 const JobListingsPage = () => {
   const [jobs, setJobs] = useState([]);
+  const [companyLogos, setCompanyLogos] = useState({});
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -18,9 +19,33 @@ const JobListingsPage = () => {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
-        setJobs(response.data);
+        const jobsData = response.data;
+        setJobs(jobsData);
+
+        // Fetch logos for each job's company
+        jobsData.forEach(job => fetchCompanyLogo(job.company));
       } catch (error) {
         console.error('Error fetching jobs:', error);
+      }
+    };
+
+    const fetchCompanyLogo = async (companyName) => {
+      try {
+        const response = await axios.get(`https://api.brandfetch.com/v2/brands/${companyName}`, {
+          headers: {
+            Authorization: `Bearer U/MSgCOoITG70xjl/UwMToRZbl+MgixoeG+q1Tl5rGk=`, // Replace with your Brandfetch API key
+          },
+        });
+        console.log(response.data)
+        const logoUrl = response.data.logos[0]?.url;
+        if (logoUrl) {
+          setCompanyLogos((prevLogos) => ({
+            ...prevLogos,
+            [companyName]: logoUrl,
+          }));
+        }
+      } catch (error) {
+        console.error(`Error fetching logo for ${companyName}:`, error);
       }
     };
 
@@ -29,12 +54,21 @@ const JobListingsPage = () => {
 
   return (
     <div className="job-listings-container">
-      <h1 className="page-title">Job Listings</h1>
+      <h1 className="page-title" style={{ color: 'white' }}>Job Listings</h1>
       <div className="jobs-list">
         {jobs.length > 0 ? (
           jobs.map((job) => (
             <div key={job._id} className="job-card">
-              <h3 className="job-company">{job.company}</h3>
+              <div className="job-header">
+                <h3 className="job-company">{job.company}</h3>
+                {companyLogos[job.company] && (
+                  <img
+                    src={companyLogos[job.company]}
+                    alt={`${job.company} logo`}
+                    className="company-logo"
+                  />
+                )}
+              </div>
               <p className="job-role"><strong>Role:</strong> {job.role}</p>
               <p className="job-description"><strong>Description:</strong> {job.description}</p>
               <p className="job-link">

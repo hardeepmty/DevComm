@@ -1,0 +1,87 @@
+/* Glitch effect for text */
+.glitch {
+  position: relative;
+  color: #00E676;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'SUSE';
+  animation: glitch 1s infinite;
+}
+
+.glitch::before, .glitch::after {
+  content: 'Orion'; /* Text duplication for glitch effect */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 rgb(183, 10, 105);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitchTop 0.8s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 blue;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitchBottom 1s infinite linear alternate-reverse;
+}
+
+/* Glitch animation for the entire text */
+@keyframes glitch {
+  0% {
+    transform: skew(0.5deg);
+  }
+  20% {
+    transform: skew(1deg);
+  }
+  40% {
+    transform: skew(-0.5deg);
+  }
+  60% {
+    transform: skew(0deg);
+  }
+  80% {
+    transform: skew(0.5deg);
+  }
+  100% {
+    transform: skew(-1deg);
+  }
+}
+
+/* Animation for the top part of the glitch */
+@keyframes glitchTop {
+  0% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0px, -2px);
+  }
+  50% {
+    clip: rect(10px, 9999px, 70px, 0);
+    transform: translate(-2px, 0px);
+  }
+  100% {
+    clip: rect(20px, 9999px, 140px, 0);
+    transform: translate(2px, 2px);
+  }
+}
+
+/* Animation for the bottom part of the glitch */
+@keyframes glitchBottom {
+  0% {
+    clip: rect(80px, 9999px, 90px, 0);
+    transform: translate(0px, 2px);
+  }
+  50% {
+    clip: rect(10px, 9999px, 130px, 0);
+    transform: translate(2px, 0px);
+  }
+  100% {
+    clip: rect(40px, 9999px, 160px, 0);
+    transform: translate(-2px, -2px);
+  }
+}

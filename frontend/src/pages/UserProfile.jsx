@@ -56,7 +56,7 @@ const UserProfile = () => {
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        alert('Failed to fetch posts');
+        alert('Failed to fetch data');
       } finally {
         setLoading(false);
       }
@@ -117,7 +117,7 @@ const UserProfile = () => {
   const handleUserClick = (id) => {
     navigate(`/profile/${id}`);
   };
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -140,7 +140,7 @@ const UserProfile = () => {
           <p><strong>Username:</strong> {user.username}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Bio:</strong> {user.bio}</p>
-          <p><strong>LinkedIn: {user.linkedin}</strong></p>
+          <p><strong>LinkedIn:</strong> {user.linkedin}</p>
         </div>
       </div>
       <div className="profile-center">
@@ -166,11 +166,22 @@ const UserProfile = () => {
         </div>
         <p>Coins: {user.coins}</p>
         <h2>Repositories</h2>
-        <ul className="repositories-list">
-          {user.repositories.map((repo, index) => (
-            <li key={index}>{repo}</li>
-          ))}
-        </ul>
+        {user.repositories && user.repositories.length > 0 ? (
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            {user.repositories.slice(0, 5).map((repository) => (
+              <li key={repository._id} style={{ marginBottom: '10px' }}>
+                <div
+                  className='repo-box'
+                  
+                >
+                  {repository.name}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No Repos</p>
+        )}
       </div>
     </div>
   );
