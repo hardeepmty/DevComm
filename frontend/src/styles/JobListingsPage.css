@@ -15,7 +15,7 @@
 
 /* Custom Scrollbar Styling */
 .job-listings-container::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 5px; /* Width of the scrollbar */
 }
 
 .job-listings-container::-webkit-scrollbar-track {

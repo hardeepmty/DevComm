@@ -168,11 +168,12 @@
 
 /* Repositories Box */
 .repo-box {
-  background-color: #333;
+  background-color: #000000;
   color: #e0e0e0;
   padding: 10px;
   border-radius: 5px;
   margin-top: 10px;
+  border: 1px solid rgba(172, 255, 47, 0.612);
 }
 
 /* Popup Overlay */
@@ -413,3 +414,8 @@
     max-width: 700px;
   }
 }
+
+
+
+
+

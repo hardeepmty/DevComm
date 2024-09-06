@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast, Toaster } from 'react-hot-toast'; // Import react-hot-toast
 import '../styles/PostJobPage.css'; // Import CSS file for styling
 
 const PostJobPage = () => {
@@ -21,6 +22,7 @@ const PostJobPage = () => {
     const token = localStorage.getItem('token');
 
     if (!token) {
+      toast.error('Please login to post a job!');
       window.location.href = '/login';
       return;
     }
@@ -31,17 +33,19 @@ const PostJobPage = () => {
         withCredentials: true,
       });
       setMessage(response.data.message);
-      alert("Posted job successfully");
+      toast.success('Posted job successfully!');
       window.location.href = '/getJobs';
       setJob({ company: '', role: '', description: '', link: '' });
     } catch (error) {
       setMessage('Failed to post job. Please try again.');
+      toast.error('Failed to post job. Please try again.');
       console.error('Error posting job:', error);
     }
   };
 
   return (
     <div className="post-job-container">
+      <Toaster />
       {/* <h1 className="page-title">Post a New Job</h1> */}
       <form onSubmit={handleSubmit} className="job-form">
         <div className="form-group">

@@ -3,10 +3,9 @@ import { Tabs, Tab, Box, BottomNavigation, BottomNavigationAction } from '@mui/m
 import { Link, useLocation } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import ArticleIcon from '@mui/icons-material/Article';
 import WorkIcon from '@mui/icons-material/Work';
-import ExploreIcon from '@mui/icons-material/Explore';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import '../styles/Navbar.css'; // Assume this file is updated for Replit theme
 
 function Navbar() {
@@ -49,17 +48,7 @@ function Navbar() {
               fontSize: '14px', // Smaller font for a sleeker design
             }}
           />
-          <Tab 
-            label="Trending"
-            component={Link}
-            to="/comb"
-            value="/comb"
-            sx={{ 
-              color: currentPath === '/comb' ? '#00E676' : 'white',
-              fontSize: '14px',
-            }}
-          />
-          <Tab 
+            <Tab 
             label="Home"
             component={Link}
             to="/try"
@@ -69,16 +58,8 @@ function Navbar() {
               fontSize: '14px',
             }}
           />
-          <Tab 
-            label="Jobs"
-            component={Link}
-            to="/jobs"
-            value="/jobs"
-            sx={{ 
-              color: currentPath === '/jobs' ? '#00E676' : 'white',
-              fontSize: '14px',
-            }}
-          />
+
+
           <Tab 
             label={<span className="glitch">Orion</span>} // Apply the glow class
             component={Link}
@@ -90,6 +71,30 @@ function Navbar() {
               fontFamily: 'SUSE', // Ensure consistent font styling
             }}
           />
+
+
+          <Tab 
+            label="Trending"
+            component={Link}
+            to="/comb"
+            value="/comb"
+            sx={{ 
+              color: currentPath === '/comb' ? '#00E676' : 'white',
+              fontSize: '14px',
+            }}
+          />
+          
+          <Tab 
+            label="Jobs"
+            component={Link}
+            to="/jobs"
+            value="/jobs"
+            sx={{ 
+              color: currentPath === '/jobs' ? '#00E676' : 'white',
+              fontSize: '14px',
+            }}
+          />
+
         </Tabs>
       </Box>
 
@@ -103,18 +108,21 @@ function Navbar() {
           bgcolor: '#1E1E1E', // Dark background for Replit feel
           justifyContent: 'space-between', // Spread out items
           padding: '8px 0',
+          zIndex: "9000"
         }}
         value={currentPath}
+        showLabels
       >
-        {/* <BottomNavigationAction
+        <BottomNavigationAction
           icon={<HomeIcon />}
           component={Link}
-          to="/home"
-          value="/home"
+          to="/try"
+          value="/try"
           sx={{ 
-            color: currentPath === '/home' ? '#00E676' : 'white',
-          }} 
-        /> */}
+            color: currentPath === '/try' ? '#00E676' : 'white',
+            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+          }}
+        />
         <BottomNavigationAction
           icon={<PersonIcon />}
           component={Link}
@@ -122,42 +130,37 @@ function Navbar() {
           value="/profile"
           sx={{ 
             color: currentPath === '/profile' ? '#00E676' : 'white',
+            '&.Mui-selected': { color: '#00E676' } // Set green if selected
           }}
         />
         <BottomNavigationAction
-          icon={<TrendingUpIcon />}
+          icon={<AutoAwesomeIcon />}
           component={Link}
-          to="/repos"
-          value="/repos"
+          to="/orion"
+          value="/orion"
           sx={{ 
-            color: currentPath === '/repos' ? '#00E676' : 'white',
+            color: currentPath === '/orion' ? '#00E676' : 'white',
+            '&.Mui-selected': { color: '#00E676' } // Set green if selected
           }}
         />
         <BottomNavigationAction
-          icon={<ArticleIcon />}
+          icon={<WhatshotIcon />}
           component={Link}
-          to="/dev"
-          value="/dev"
+          to="/comb"
+          value="/comb"
           sx={{ 
-            color: currentPath === '/dev' ? '#00E676' : 'white',
+            color: currentPath === '/comb' ? '#00E676' : 'white',
+            '&.Mui-selected': { color: '#00E676' } // Set green if selected
           }}
         />
         <BottomNavigationAction
           icon={<WorkIcon />}
           component={Link}
-          to="/getJobs"
-          value="/getJobs"
+          to="/jobs"
+          value="/jobs"
           sx={{ 
-            color: currentPath === '/getJobs' ? '#00E676' : 'white',
-          }}
-        />
-        <BottomNavigationAction
-          icon={<ExploreIcon />}
-          component={Link}
-          to="/try"
-          value="/try"
-          sx={{ 
-            color: currentPath === '/try' ? '#00E676' : 'white',
+            color: currentPath === '/jobs' ? '#00E676' : 'white',
+            '&.Mui-selected': { color: '#00E676' } // Set green if selected
           }}
         />
       </BottomNavigation>

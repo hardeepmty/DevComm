@@ -39,15 +39,15 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/home" element={<Home />} />
+          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/profile/:userId" element={<UserProfile />} />
-          <Route path="/repos" element={<TrendingRepositories />} />
-          <Route path="/dev" element={<PopularArticles />} />
+          {/* <Route path="/repos" element={<TrendingRepositories />} /> */}
+          {/* <Route path="/dev" element={<PopularArticles />} /> */}
           <Route path="/try" element={<Try />} />
           <Route path="/chat/:userId" element={<Chat />} />
           <Route path="/postJob" element={<PostJobPage />} />
           <Route path="/getJobs" element={<JobListingsPage />} />
-          <Route path="/code" element={<CodingChallenge />} />
+          {/* <Route path="/code" element={<CodingChallenge />} /> */}
           <Route path="/codeass" element={<CodingAssistant />} />
           <Route path="/codeeditor" element={<CodeEditor />} />
           <Route path="/compiler" element={<Compiler />} />

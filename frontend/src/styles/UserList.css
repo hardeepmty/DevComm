@@ -6,7 +6,29 @@
   background-color: #1d1c1c; /* Replit's dark background */
   border-radius: 12px;
   color: #f5f5f5; /* Light text */
+  height: 83vh;
+  overflow-y: auto;
 }
+
+.userlist-container::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+.userlist-container::-webkit-scrollbar-track {
+  background: #000000; /* Dark background for the track */
+  border-radius: 8px; /* Rounded corners for the track */
+}
+
+.userlist-container::-webkit-scrollbar-thumb {
+  background: #11111f; /* Bright green for the thumb */
+  border-radius: 8px; /* Rounded corners for the thumb */
+}
+
+.userlist-container::-webkit-scrollbar-thumb:hover {
+  background: #044c80; /* Neon pink when hovering */
+}
+
+
 
 /* Title */
 .userlist-title {
@@ -67,7 +89,7 @@
 
 /* Username */
 .userlist-username {
-  font-size: medium;
+  font-size: small;
   font-weight: bold;
   color: #ffffff; /* Bright text */
   margin-right: 10px;

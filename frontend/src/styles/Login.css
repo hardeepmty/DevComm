@@ -129,3 +129,16 @@
 .login-footer button:hover {
   background-color: #ddd;
 }
+
+/* Hide left section on mobile view */
+@media only screen and (max-width: 600px) {
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    flex: 1;
+    width: 100%;
+    padding: 20px;
+  }
+}

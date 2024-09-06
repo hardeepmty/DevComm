@@ -3,8 +3,16 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #1f1f1f; /* Dark background */
+  background-color: #000000; /* Dark background */
   color: #e0e0e0; /* Light text color */
+  flex-direction: row; /* Default for larger screens */
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column; /* Stack sections vertically on smaller screens */
+    padding: 10px;
+  }
 }
 
 /* Left Side Profile */
@@ -15,6 +23,15 @@
   border-radius: 10px;
   height: 100vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+@media (max-width: 768px) {
+  .profile-left {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Let the content dictate height */
+    margin-bottom: 20px;
+    padding: 15px;
+  }
 }
 
 .profile-picture {
@@ -55,6 +72,13 @@
   padding: 20px;
 }
 
+@media (max-width: 768px) {
+  .profile-center {
+    width: 100%; /* Full width on mobile */
+    padding: 15px;
+  }
+}
+
 .posts-container {
   display: flex;
   flex-direction: column;
@@ -63,6 +87,12 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #4c9aff #1f1f1f; /* Blue scrollbar with dark track */
+}
+
+@media (max-width: 768px) {
+  .posts-container {
+    height: auto; /* Let the height adapt to the content */
+  }
 }
 
 .posts-container::-webkit-scrollbar {
@@ -83,7 +113,7 @@
 }
 
 .post-user-profile {
-  background-color: #2b2b2b; /* Slightly lighter than the container */
+  background-color: #100e23; /* Slightly lighter than the container */
   padding: 15px;
   border-radius: 10px;
   color: #e0e0e0; /* Light text color */
@@ -102,6 +132,15 @@
   border-radius: 10px;
   height: 100vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+@media (max-width: 768px) {
+  .profile-right {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Let the content dictate height */
+    margin-top: 20px;
+    padding: 15px;
+  }
 }
 
 .profile-follow {
