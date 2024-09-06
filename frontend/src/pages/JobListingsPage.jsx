@@ -38,7 +38,7 @@ const JobListingsPage = () => {
               <p className="job-role"><strong>Role:</strong> {job.role}</p>
               <p className="job-description"><strong>Description:</strong> {job.description}</p>
               <p className="job-link">
-                <strong>Link:</strong> 
+                <strong>Link: </strong> 
                 <a href={job.link} target="_blank" rel="noopener noreferrer" className="job-link-url">
                   {job.link}
                 </a>

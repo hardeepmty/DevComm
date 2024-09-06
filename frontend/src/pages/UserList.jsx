@@ -101,7 +101,7 @@ const UserList = () => {
   }
 
   return (
-    <div className="userlist-container" style={{backgroundColor:"red"}}>
+    <div className="userlist-container" >
       <h1 className="userlist-title">All Users</h1>
       <input
         type="text"
