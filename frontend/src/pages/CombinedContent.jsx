@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/CombinedContent.css'; // Import CSS file for styling
+import '../styles/CombinedContent.css';
 
 const CombinedContent = () => {
   const [items, setItems] = useState([]);
@@ -11,34 +11,33 @@ const CombinedContent = () => {
     const fetchCombinedContent = async () => {
       setLoading(true);
       try {
-        // Fetch trending repositories
+        
         const reposResponse = await axios.get('https://api.github.com/search/repositories', {
           params: {
             q: 'stars:>10000',
             sort: 'stars',
             order: 'desc',
-            per_page: 5, // Adjust the number if needed
+            per_page: 5, 
           },
           headers: {
             Accept: 'application/vnd.github.v3+json',
           },
         });
 
-        // Fetch popular articles
         const articlesResponse = await axios.get('https://dev.to/api/articles', {
           params: {
-            per_page: 5, // Adjust the number if needed
+            per_page: 5,
             tag: 'popular',
           },
         });
 
-        // Combine and shuffle data
+        
         const combinedItems = [
           ...reposResponse.data.items.map(repo => ({ type: 'repo', ...repo })),
           ...articlesResponse.data.map(article => ({ type: 'article', ...article }))
         ];
 
-        // Shuffle the combined items
+        
         for (let i = combinedItems.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [combinedItems[i], combinedItems[j]] = [combinedItems[j], combinedItems[i]];

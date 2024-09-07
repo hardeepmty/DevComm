@@ -1,11 +1,11 @@
-/* General Container Styling */
+
 .job-listings-container {
-  background-color: #1e1e1e; /* Dark background to match Replit's theme */
+  background-color: #1e1e1e;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   margin-top: 20px;
   font-family: "SUSE", sans-serif;
   color: #e0e0e0; /* Light text for better contrast */

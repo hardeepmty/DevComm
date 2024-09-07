@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUsersAndPosts = async () => {
       const token = localStorage.getItem('token');
-      const loggedInUserId = localStorage.getItem('userId'); // Retrieve userId
+      const loggedInUserId = localStorage.getItem('userId');
       console.log(loggedInUserId)
 
       if (!token || !loggedInUserId) {

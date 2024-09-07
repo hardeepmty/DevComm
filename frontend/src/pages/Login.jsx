@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/Login.css'; // Import the CSS file
-import Dclogo from '../images/Dclogo.jpg'; // Ensure image path is correct
+import '../styles/Login.css'; 
+import Dclogo from '../images/Dclogo.jpg'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');

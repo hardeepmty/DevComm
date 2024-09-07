@@ -10,10 +10,9 @@ function CodingChallenge() {
     feedback: ""
   });
 
-  // Fetch the daily challenge when the component mounts
   useEffect(() => {
     fetchDailyChallenge();
-  }, []); // Empty dependency array means this effect runs only once after the initial render
+  }, []); 
 
   const fetchDailyChallenge = async () => {
     setGeneratingChallenge(true);

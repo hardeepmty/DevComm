@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast, Toaster } from 'react-hot-toast'; // Import react-hot-toast
-import '../styles/PostJobPage.css'; // Import CSS file for styling
+import { toast, Toaster } from 'react-hot-toast';
+import '../styles/PostJobPage.css'; 
 
 const PostJobPage = () => {
   const [job, setJob] = useState({

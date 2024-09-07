@@ -1,11 +1,11 @@
-/* Container for the code editor and output pane */
+
 .code-editor-container {
   display: flex;
   flex-direction: row;
   height: 100vh;
   font-family: 'SUSE', sans-serif;
-  background-color: #282c34; /* Dark background similar to Replit */
-  color: #abb2bf; /* Softer, more readable text color */
+  background-color: #282c34; 
+  color: #abb2bf; 
 }
 
 /* Editor pane styles */
@@ -15,8 +15,8 @@
   width: 50%;
   padding: 10px;
   box-sizing: border-box;
-  background-color: #1e222a; /* Slightly darker background for the editor */
-  border-right: 2px solid #3a3f4b; /* Subtle border between panes */
+  background-color: #1e222a; 
+  border-right: 2px solid #3a3f4b; 
   overflow: auto;
 }
 
@@ -24,7 +24,7 @@
 .editor-pane h2 {
   margin-top: 0;
   font-size: 1.2rem;
-  color: #c8ccd4; /* Softer light text color */
+  color: #c8ccd4;
   border-bottom: 1px solid #3a3f4b;
   padding-bottom: 10px;
 }
@@ -33,7 +33,7 @@
 iframe {
   width: 50%;
   border: none;
-  background-color: #1e222a; /* Match the background color of the editor */
+  background-color: #1e222a; 
 }
 
 /* Ace editor customization */
@@ -41,18 +41,18 @@ iframe {
   border: 1px solid #3a3f4b;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-color: #282c34; /* Match the background of the container */
-  color: #abb2bf; /* Softer text color for readability */
+  background-color: #282c34; 
+  color: #abb2bf; 
 }
 
 /* Style for selected line in the editor */
 .ace_editor .ace_cursor {
-  color: #528bff; /* Blue cursor for better visibility */
+  color: #528bff; 
 }
 
 .ace_editor .ace_line {
-  background-color: #3a3f4b; /* Darker background for the selected line */
-  color: #ffffff; /* Ensure white text is visible */
+  background-color: #3a3f4b;
+  color: #ffffff; 
 }
 
 /* Media query for responsiveness */

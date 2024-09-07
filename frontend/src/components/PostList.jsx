@@ -4,7 +4,7 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 import IconButton from '@mui/material/IconButton';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import '../styles/PostList.css'; // Import the CSS file
+import '../styles/PostList.css'; 
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);

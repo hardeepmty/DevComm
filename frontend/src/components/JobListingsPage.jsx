@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/JobListingsPage.css'; // Import CSS file for styling
+import '../styles/JobListingsPage.css';
 
 const JobListingsPage = () => {
   const [jobs, setJobs] = useState([]);
@@ -22,7 +22,7 @@ const JobListingsPage = () => {
         const jobsData = response.data;
         setJobs(jobsData);
 
-        // Fetch logos for each job's company
+        
         jobsData.forEach(job => fetchCompanyLogo(job.company));
       } catch (error) {
         console.error('Error fetching jobs:', error);
@@ -33,7 +33,7 @@ const JobListingsPage = () => {
       try {
         const response = await axios.get(`https://api.brandfetch.com/v2/brands/${companyName}`, {
           headers: {
-            Authorization: `Bearer U/MSgCOoITG70xjl/UwMToRZbl+MgixoeG+q1Tl5rGk=`, // Replace with your Brandfetch API key
+            Authorization: `Bearer U/MSgCOoITG70xjl/UwMToRZbl+MgixoeG+q1Tl5rGk=`,
           },
         });
         console.log(response.data)

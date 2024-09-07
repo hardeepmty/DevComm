@@ -6,8 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-import '../styles/Navbar.css'; // Assume this file is updated for Replit theme
-
+import '../styles/Navbar.css';
 function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -27,16 +26,16 @@ function Navbar() {
           value={currentPath}
           textColor="inherit"
           TabIndicatorProps={{
-            style: { backgroundColor: '#00E676', height: '3px' } // Green tab indicator for a sleek look
+            style: { backgroundColor: '#00E676', height: '3px' }
           }}
           sx={{
-            minHeight: '48px', // Reduce the tab height for a minimalist look
+            minHeight: '48px',
           }}
         >
           <Tab
             label={<h2 style={{ margin: 0, color: "white" , fontFamily:"SUSE"}}>DevComm</h2>}
             disabled
-            sx={{ minWidth: 'auto', color: '#00E676' }} // Replit green for branding
+            sx={{ minWidth: 'auto', color: '#00E676' }} 
           />
           <Tab 
             label="Profile"
@@ -45,7 +44,7 @@ function Navbar() {
             value="/profile"
             sx={{ 
               color: currentPath === '/profile' ? '#00E676' : 'white',
-              fontSize: '14px', // Smaller font for a sleeker design
+              fontSize: '14px', 
             }}
           />
             <Tab 
@@ -61,14 +60,14 @@ function Navbar() {
 
 
           <Tab 
-            label={<span className="glitch">Orion</span>} // Apply the glow class
+            label={<span className="glitch">Orion</span>} 
             component={Link}
             to="/orion"
             value="/orion"
             sx={{ 
               color: currentPath === '/orion' ? '#00E676' : 'white',
               fontSize: '14px',
-              fontFamily: 'SUSE', // Ensure consistent font styling
+              fontFamily: 'SUSE', 
             }}
           />
 
@@ -105,8 +104,8 @@ function Navbar() {
           width: '100%', 
           position: 'fixed', 
           bottom: 0, 
-          bgcolor: '#1E1E1E', // Dark background for Replit feel
-          justifyContent: 'space-between', // Spread out items
+          bgcolor: '#1E1E1E', 
+          justifyContent: 'space-between', 
           padding: '8px 0',
           zIndex: "9000"
         }}
@@ -120,7 +119,7 @@ function Navbar() {
           value="/try"
           sx={{ 
             color: currentPath === '/try' ? '#00E676' : 'white',
-            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+            '&.Mui-selected': { color: '#00E676' } 
           }}
         />
         <BottomNavigationAction
@@ -130,7 +129,7 @@ function Navbar() {
           value="/profile"
           sx={{ 
             color: currentPath === '/profile' ? '#00E676' : 'white',
-            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+            '&.Mui-selected': { color: '#00E676' }
           }}
         />
         <BottomNavigationAction
@@ -140,7 +139,7 @@ function Navbar() {
           value="/orion"
           sx={{ 
             color: currentPath === '/orion' ? '#00E676' : 'white',
-            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+            '&.Mui-selected': { color: '#00E676' } 
           }}
         />
         <BottomNavigationAction
@@ -150,7 +149,7 @@ function Navbar() {
           value="/comb"
           sx={{ 
             color: currentPath === '/comb' ? '#00E676' : 'white',
-            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+            '&.Mui-selected': { color: '#00E676' } 
           }}
         />
         <BottomNavigationAction
@@ -160,7 +159,7 @@ function Navbar() {
           value="/jobs"
           sx={{ 
             color: currentPath === '/jobs' ? '#00E676' : 'white',
-            '&.Mui-selected': { color: '#00E676' } // Set green if selected
+            '&.Mui-selected': { color: '#00E676' } 
           }}
         />
       </BottomNavigation>

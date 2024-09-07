@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
-import UserList from './UserList';
-import PostList from './PostList';
-import JobListingsPage from './JobListingsPage';
+import UserList from '../components/UserList';
+import PostList from '../components/PostList';
+import JobListingsPage from '../components/JobListingsPage';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Try = () => {
-  const isMobile = useMediaQuery('(max-width: 600px)'); // For mobile detection
-  const [tabValue, setTabValue] = useState(0); // State for the selected tab
+  const isMobile = useMediaQuery('(max-width: 600px)'); 
+  const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -16,13 +16,13 @@ const Try = () => {
   return (
     <div>
       {isMobile ? (
-        // Mobile View: Use MUI Tabs
+     
         <Box sx={{ width: '100%', backgroundColor: 'black', paddingTop: '10px' }}>
           <Tabs 
             value={tabValue} 
             onChange={handleTabChange} 
             textColor="inherit" 
-            TabIndicatorProps={{ style: { backgroundColor: '#00E676' } }} // Replit green for the active tab indicator
+            TabIndicatorProps={{ style: { backgroundColor: '#00E676' } }} 
             centered
             variant="fullWidth"
           >
@@ -30,7 +30,6 @@ const Try = () => {
             <Tab label="Users" sx={{ color: 'white' }} />
           </Tabs>
 
-          {/* Conditionally render content based on the selected tab */}
           {tabValue === 0 && (
             <div style={{ padding: '0px', backgroundColor: 'black' }}>
               <PostList />
@@ -43,7 +42,6 @@ const Try = () => {
           )}
         </Box>
       ) : (
-        // Desktop View: Standard layout with JobListingsPage, PostList, and UserList
         <div
           style={{
             display: 'flex',

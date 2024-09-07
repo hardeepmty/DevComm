@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Register.css'; // Import the new CSS file
-import logo from '../images/DCLogo.jpg'; // Replace with actual logo image path
+import '../styles/Register.css'; 
+import logo from '../images/DCLogo.jpg'; 
 
 function Register() {
   const [username, setUsername] = useState('');

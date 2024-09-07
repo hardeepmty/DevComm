@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
-import '../styles/Chat.css'; // Import a CSS file for styles
+import '../styles/Chat.css';
 
 const Chat = () => {
   const { userId } = useParams();
@@ -79,7 +79,7 @@ const Chat = () => {
         });
 
         setChat(sendMessageResponse.data.chat);
-        setMessage(''); // Clear the message input
+        setMessage(''); 
       } else {
         alert('Failed to send message');
       }
