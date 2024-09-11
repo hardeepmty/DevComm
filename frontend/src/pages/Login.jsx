@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/user/login', { email, password }, { withCredentials: true });
+      const response = await axios.post('https://devcomm.onrender.com/api/user/login', { email, password }, { withCredentials: true });
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
