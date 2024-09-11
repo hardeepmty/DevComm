@@ -19,7 +19,7 @@ const Chat = () => {
       return;
     }
 
-    const newSocket = io('http://localhost:5000');
+    const newSocket = io('https://devcomm.onrender.com');
     setSocket(newSocket);
 
     return () => newSocket.close();
@@ -32,7 +32,7 @@ const Chat = () => {
 
       const fetchChat = async () => {
         try {
-          const chatResponse = await axios.get(`http://localhost:5000/api/chat/chat/${userId}`, {
+          const chatResponse = await axios.get(`https://devcomm.onrender.com/api/chat/chat/${userId}`, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           });
@@ -63,7 +63,7 @@ const Chat = () => {
 
     try {
       const sendMessageResponse = await axios.post(
-        `http://localhost:5000/api/chat/chat/${userId}`,
+        `https://devcomm.onrender.com/api/chat/chat/${userId}`,
         { text: message },
         {
           headers: { Authorization: `Bearer ${token}` },

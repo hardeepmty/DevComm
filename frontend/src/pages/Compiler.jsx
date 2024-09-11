@@ -20,7 +20,7 @@ function Compiler() {
 
   const executeCode = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/execute', {
+      const response = await axios.post('https://devcomm.onrender.com/execute', {
         language,
         code,
       });

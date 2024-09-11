@@ -15,7 +15,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/user/register', {
+      const response = await axios.post('https://devcomm.onrender.com/api/user/register', {
         username,
         email,
         password,

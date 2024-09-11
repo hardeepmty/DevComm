@@ -15,7 +15,7 @@ const JobListingsPage = () => {
         return;
       }
       try {
-        const response = await axios.get('http://localhost:5000/api/job/getJobs', {
+        const response = await axios.get('https://devcomm.onrender.com/api/job/getJobs', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });

@@ -21,12 +21,12 @@ const UserProfile = () => {
       }
 
       try {
-        const userResponse = await axios.get(`http://localhost:5000/api/user/getUser/${userId}`, {
+        const userResponse = await axios.get(`https://devcomm.onrender.com/api/user/getUser/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
 
-        const usersResponse = await axios.get('http://localhost:5000/api/user/getUsers', {
+        const usersResponse = await axios.get('https://devcomm.onrender.com/api/user/getUsers', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -44,7 +44,7 @@ const UserProfile = () => {
           alert('Failed to fetch user or users');
         }
 
-        const postsResponse = await axios.get(`http://localhost:5000/api/post/user/${userId}/posts`, {
+        const postsResponse = await axios.get(`https://devcomm.onrender.com/api/post/user/${userId}/posts`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -75,8 +75,8 @@ const UserProfile = () => {
 
     try {
       const endpoint = isFollowing
-        ? 'http://localhost:5000/api/user/unfollow'
-        : 'http://localhost:5000/api/user/follow';
+        ? 'https://devcomm.onrender.com/api/user/unfollow'
+        : 'https://devcomm.onrender.com/api/user/follow';
 
       const payload = isFollowing
         ? { userIdToUnfollow: targetUserId }

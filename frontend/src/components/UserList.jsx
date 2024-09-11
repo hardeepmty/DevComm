@@ -19,7 +19,7 @@ const UserList = () => {
       }
 
       try {
-        const usersResponse = await axios.get('http://localhost:5000/api/user/getUsers', {
+        const usersResponse = await axios.get('https://devcomm.onrender.com/api/user/getUsers', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -55,8 +55,8 @@ const UserList = () => {
 
     try {
       const endpoint = isFollowing
-        ? 'http://localhost:5000/api/user/unfollow'
-        : 'http://localhost:5000/api/user/follow';
+        ? 'https://devcomm.onrender.com/api/user/unfollow'
+        : 'https://devcomm.onrender.com/api/user/follow';
 
       const payload = isFollowing
         ? { userIdToUnfollow: userId }
