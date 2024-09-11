@@ -416,7 +416,7 @@ const Profile = () => {
             {user.followers && user.followers.length > 0 ? (
               <ul>
                 {user.followers.map((follower) => (
-                  <li key={follower._id}>{follower.username}</li>
+                  <li style={{listStyle:"none"}} key={follower._id}>{follower.username}</li>
                 ))}
               </ul>
             ) : (
@@ -434,9 +434,9 @@ const Profile = () => {
             <h2>Following</h2>
             {/* Map through user's following */}
             {user.following && user.following.length > 0 ? (
-              <ul>
+              <ul className='list'>
                 {user.following.map((following) => (
-                  <li key={following._id}>{following.username}</li>
+                  <li style={{listStyle:"none"}} key={following._id}>{following.username}</li>
                 ))}
               </ul>
             ) : (
