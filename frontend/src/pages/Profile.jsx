@@ -39,7 +39,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/user/getMyself', {
+        const response = await axios.get('https://devcomm.onrender.com/api/user/getMyself', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -62,7 +62,7 @@ const Profile = () => {
     const fetchUserPosts = async (userId) => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`http://localhost:5000/api/post/userPosts`, {
+        const response = await axios.get(`https://devcomm.onrender.com/api/post/userPosts`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -83,7 +83,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/user/logout', {}, { withCredentials: true });
+      await axios.post('https://devcomm.onrender.com/api/user/logout', {}, { withCredentials: true });
       localStorage.removeItem('token');
       window.location.href = '/login';
     } catch (error) {
@@ -105,7 +105,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.patch(
-        'http://localhost:5000/api/user/edit',
+        'https://devcomm.onrender.com/api/user/edit',
         { [fieldName]: fieldValue },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
@@ -150,7 +150,7 @@ const Profile = () => {
       }
 
       const response = await axios.post(
-        'http://localhost:5000/api/post/newPost',
+        'https://devcomm.onrender.com/api/post/newPost',
         { caption: newPostCaption, imageUrl },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
@@ -174,7 +174,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.patch(
-        'http://localhost:5000/api/user/edit',
+        'https://devcomm.onrender.com/api/user/edit',
         { openToWork: !openToWork },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
