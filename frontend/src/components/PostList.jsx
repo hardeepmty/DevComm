@@ -22,7 +22,7 @@ const PostList = () => {
       }
 
       try {
-        const postsResponse = await axios.get('http://localhost:5000/api/post/allPosts', {
+        const postsResponse = await axios.get('https://devcomm.onrender.com/api/post/allPosts', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -72,7 +72,7 @@ const PostList = () => {
       let response;
       if (isLiked) {
         response = await axios.post(
-          `http://localhost:5000/api/post/unlike/${postId}`,
+          `https://devcomm.onrender.com/api/post/unlike/${postId}`,
           {},
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -81,7 +81,7 @@ const PostList = () => {
         );
       } else {
         response = await axios.post(
-          `http://localhost:5000/api/post/like/${postId}`,
+          `https://devcomm.onrender.com/api/post/like/${postId}`,
           {},
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -116,7 +116,7 @@ const PostList = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/post/comment/${postId}`,
+        `https://devcomm.onrender.com/api/post/comment/${postId}`,
         { text: newComment[postId] },
         {
           headers: { Authorization: `Bearer ${token}` },
