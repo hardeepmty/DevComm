@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 import '../styles/Login.css'; 
 import Dclogo from '/images/DClogo.jpg'; 
 
@@ -8,15 +9,18 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const navigate = useNavigate()
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://devcomm.onrender.com/api/user/login', { email, password }, { withCredentials: true });
+      const response = await axios.post('http://localhost:5000/api/user/login', { email, password }, { withCredentials: true });
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
-        window.location.href = '/profile'; 
+        // window.location.href = '/profile'; 
+        navigate('/profile') ;
       } else {
         setError(response.data.message);
       }
