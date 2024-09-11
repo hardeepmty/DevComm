@@ -116,7 +116,7 @@ const login = async (req, res) => {
       repositories: user.repositories,
     };
 
-    return res.cookie('token', token, { secure: true, maxAge: 1 * 24 * 60 * 60 * 1000 }).json({
+    return res.cookie('token', token, { secure: true,sameSite: 'none', maxAge: 1 * 24 * 60 * 60 * 1000 }).json({
       message: `Welcome back ${user.username}`,
       success: true,
       user,
