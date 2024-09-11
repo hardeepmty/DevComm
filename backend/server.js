@@ -1,23 +1,21 @@
-const express = require('express');
-const http = require('http');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
-const userRoutes = require('./routes/userRoutes');
-const postRoutes = require('./routes/postRoutes');
-const chatRoutes = require('./routes/chatRoutes');
-const jobRoutes= require('./routes/jobRoutes')
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const initSocket = require('./socket/socket');
+const express = require("express");
+const http = require("http");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/postRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+const jobRoutes = require("./routes/jobRoutes");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const initSocket = require("./socket/socket");
 
-
-const bodyParser = require('body-parser');
-const { exec } = require('child_process');
-const fs = require('fs');
-const os = require('os');
-const path = require('path')
-
+const bodyParser = require("body-parser");
+const { exec } = require("child_process");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 
 dotenv.config();
 
@@ -31,38 +29,37 @@ const io = initSocket(server);
 connectDB();
 
 const PORT = process.env.PORT || 5000;
+const allowedHosts = process.env.HOSTS.split(",");
 const corsOptions = {
-  origin: 'http://localhost:5173', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true 
+  origin: allowedHosts,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
-app.get('/', (req, res) => res.json({ message: "hello Ji" }));
+app.get("/", (req, res) => res.json({ message: "hello Ji" }));
 
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/chat", chatRoutes);
-app.use("/api/job",jobRoutes) ;
+app.use("/api/job", jobRoutes);
 
-
-
-app.post('/execute', (req, res) => {
-  const { language, code } = req.body;  
+app.post("/execute", (req, res) => {
+  const { language, code } = req.body;
   let command;
 
-  if (language === 'javascript') {
+  if (language === "javascript") {
     command = `node -e "${code.replace(/"/g, '\\"')}"`;
-  } else if (language === 'python') {
+  } else if (language === "python") {
     command = `python -c "${code.replace(/"/g, '\\"')}"`;
-  } else if (language === 'c_cpp') {
-    const tempFilePath = path.join(__dirname, 'temp.cpp');  
-    fs.writeFileSync(tempFilePath, code);  
+  } else if (language === "c_cpp") {
+    const tempFilePath = path.join(__dirname, "temp.cpp");
+    fs.writeFileSync(tempFilePath, code);
 
-    if (os.platform() === 'win32') {
+    if (os.platform() === "win32") {
       command = `g++ ${tempFilePath} -o temp && temp.exe`;
     } else {
       command = `g++ ${tempFilePath} -o temp && ./temp`;
