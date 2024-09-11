@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import fallbackImage from '../images/user.png'; 
+import fallbackImage from '/images/user.png'; 
 import '../styles/UserList.css';
 
 const UserList = () => {

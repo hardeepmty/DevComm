@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Register.css'; 
-import logo from '../images/DCLogo.jpg'; 
+import logo from '/images/DClogo.jpg'; 
 
 function Register() {
   const [username, setUsername] = useState('');
