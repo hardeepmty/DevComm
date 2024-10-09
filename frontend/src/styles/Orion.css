@@ -1,98 +1,135 @@
-/* Container for the entire page */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: #0e0e0e; /* Dark background similar to Replit */
-  font-family: "Roboto", sans-serif; /* Modern font */
-  color: #ffffff;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* Styling for the boxes */
-.box-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-.box {
-  background: linear-gradient(145deg, #1c1c1c, #2c2c2c); /* Gradient background for depth */
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  width: 250px; /* Fixed width for consistency */
-  height: 200px; /* Fixed height */
-  color: #ffffff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.card {
+  transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
+  color: white;
+  padding: 20px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-style: preserve-3d; /* Enable 3D effects */
 }
 
-.box::before {
-  content: "";
+/* Hover effect with futuristic glow */
+.card:hover {
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.5); /* Adjusted shadow for better visibility */
+}
+
+/* Code Editor futuristic matrix rain */
+.code-editor .matrix-animation {
   position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(circle, rgba(0, 255, 255, 0.2), transparent);
-  opacity: 0.3;
-  transform: scale(0.8);
-  transition: opacity 0.3s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -1;
+  opacity: 0.7;
+  overflow: hidden;
 }
 
-.box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(0, 255, 255, 0.3);
+/* Additional matrix animation for the bottom right corner */
+.bottom-right-matrix {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  color: #00ff00;
+  opacity: 0.8;
+  animation: matrix 4s linear infinite;
 }
 
-.box:hover::before {
-  opacity: 0.5;
+.bottom-right-matrix span {
+  display: block;
 }
 
-/* Box title and content */
-.box-title {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #00bcd4; /* Highlight color */
+/* Update the keyframes for matrix animation */
+@keyframes matrix {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }
 
-.box-content {
-  font-size: 1rem;
+.matrix-animation span {
+  position: absolute;
+  font-size: 16px;
+  color: #00ff00;
+  opacity: 0.8;
+  animation: matrix 4s linear infinite;
 }
 
-/* Link container with hover effects */
-.link-container {
-  margin: 20px;
-  padding: 15px 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.matrix-animation span:nth-child(odd) {
+  animation-delay: -2s;
 }
 
-.link-container:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+/* Compiler futuristic 3D cube */
+.compiler .cube-animation {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  perspective: 800px;
 }
 
-/* Link styling */
-.link-container a {
-  text-decoration: none;
-  color: #00bcd4; /* Replit-like color */
-  font-size: 1.2rem;
-  transition: color 0.2s ease;
+.cube {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 3s infinite linear;
 }
 
-.link-container a:hover {
-  color: #ffffff;
+@keyframes rotateCube {
+  0% {
+    transform: rotateX(0) rotateY(0);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+.cube div {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.cube div:nth-child(1) { transform: rotateY(0deg) translateZ(25px); }
+.cube div:nth-child(2) { transform: rotateY(90deg) translateZ(25px); }
+.cube div:nth-child(3) { transform: rotateY(180deg) translateZ(25px); }
+.cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(25px); }
+.cube div:nth-child(5) { transform: rotateX(90deg) translateZ(25px); }
+.cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(25px); }
+
+/* Coding Assistant pulsing hologram */
+.coding-assistant .hologram-animation {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(4, 177, 220, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(237, 9, 9, 0.6);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1) translateX(-50%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5) translateX(-50%);
+    opacity: 0;
+  }
 }
